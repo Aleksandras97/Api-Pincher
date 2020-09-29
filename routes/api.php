@@ -17,12 +17,22 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 //Posts
+/*
 Route::get('/posts', [\App\Http\Controllers\Api\PostController::class, 'index']);
 Route::get('/posts/{post}', [\App\Http\Controllers\Api\PostController::class, 'show']);
 Route::post('/posts', [\App\Http\Controllers\Api\PostController::class, 'store']);
 Route::put('/posts/{post}', [\App\Http\Controllers\Api\PostController::class, 'update']);
 Route::delete('/posts/{post}', [\App\Http\Controllers\Api\PostController::class, 'destroy']);
+*/
+//Route::group(['middleware' => 'auth:api'], function (){
+//
+//});
+
+Route::apiResource('posts', \App\Http\Controllers\Api\PostController::class);
+
+Route::apiResource('comments', \App\Http\Controllers\Api\CommentController::class);
 
 //Post comments
 Route::get('/posts/{post}/comments', [\App\Http\Controllers\Api\PostController::class, 'showComments']);

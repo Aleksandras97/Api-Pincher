@@ -14,6 +14,11 @@ class Post extends Model
         'user_id'
     ];
 
+//    protected $casts = [
+//        'body' => 'string',
+//        'user_id' => 'integer',
+//    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

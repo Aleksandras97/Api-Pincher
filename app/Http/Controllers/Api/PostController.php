@@ -3,41 +3,99 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PostResource;
+use App\Http\Requests\SavePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    //
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-//        return PostResource::collection(Post::all());
-        return Post::with('comments')->get();
+//        $posts =  Post::with('comments')->with('user')->get();
+//        $response = APIHelpers::createAPIResponse(false, 200, '', $posts);
+        return response()->json(Post::with('comments')->with('user')->get(), 200);
     }
 
-    public function show($id)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(SavePostRequest $request)
     {
-        return Post::with('comments')->get()->where('id', $id);
+        $post = new Post();
+        $post->body = $request->body;
+        $post->user_id = $request->user_id;
+        $post_save = $post->save();
+        if ($post_save){
+            return $post;
+        } else {
+            return response()->json('Comment creation failed', 400);
+        }
     }
 
-    public function showComments($id){
-        return Post::find($id)->comments;
-    }
-
-    public function store(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show($post)
     {
-//        dd($request);
-        return Post::create($request->all());
+        if (Post::find($post) == null)
+        {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+        return Post::with('comments')->with('user')->find($post);
+
     }
 
-    public function update(Request $request, $id)
+    public function showComments($post){
+        if (Post::find($post) == null)
+        {
+            return response()->json(['error' => 'Record not found'], 404);
+        }
+        return Post::find($post)->comments;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(SavePostRequest $request, $id)
     {
-        return Post::find($id)->update($request->all());
+        $post = Post::find($id);
+        $post->body = $request->body;
+        $post->user_id = $request->user_id;
+        $post_save = $post->save();
+        if ($post_save){
+            return $post;
+        } else {
+            return response()->json('Comment update failed', 400);
+        }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-        return Post::destroy($id);
+        if (Post::destroy($id)){
+            return response()->json(['message' => 'Comment deleted successfully'], 204);
+        } else {
+            return response()->json(['message' => 'Comment delete failed'], 404);
+        }
     }
 }
