@@ -44,7 +44,7 @@
 
             <div>
 
-              <h1 class="text">Hello World</h1>
+              <h1 class="text">Hello world </h1>
 
             </div>
         </div>
