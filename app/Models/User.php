@@ -48,4 +48,31 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class); //Comment has user_id
     }
+
+     public function roles()
+     {
+         return $this->belongsToMany(Role::class)->withTimestamps();
+     }
+
+     public function assignRole($role)
+     {
+         if (is_string($role)){
+             $role = Role::whereName($role)->firstOrFail();
+         }
+        $this->roles()->syncWithoutDetaching($role);
+     }
+
+     public function abilities()
+     {
+         return $this->roles->map->abilities->flatten()->pluck('name')->unique();
+     }
+
+     public function isAdmin()
+     {
+         if ($this->roles->contains('name', 'admin'))
+         {
+             return true;
+         }
+         return false;
+     }
 }

@@ -4,47 +4,51 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SavePostRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
+use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
     public function index()
     {
-//        $posts =  Post::with('comments')->with('user')->get();
-//        $response = APIHelpers::createAPIResponse(false, 200, '', $posts);
-        return response()->json(Post::with('comments')->with('user')->get(), 200);
+
+        $posts = Post::all();
+        return PostResource::collection($posts);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return PostResource
      */
-    public function store(SavePostRequest $request)
+    public function store(Request $request)
     {
-        $post = new Post();
-        $post->body = $request->body;
-        $post->user_id = $request->user_id;
-        $post_save = $post->save();
-        if ($post_save){
-            return $post;
-        } else {
-            return response()->json('Comment creation failed', 400);
-        }
+//        dd($request->all());
+        $request->validate([
+            'body' => 'required|max:255'
+        ]);
+
+        $post = auth()->user()->posts()->create($request->all());
+
+        return new PostResource($post);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return Response
      */
     public function show($post)
     {
@@ -52,8 +56,8 @@ class PostController extends Controller
         {
             return response()->json(['error' => 'Record not found'], 404);
         }
-        return Post::with('comments')->with('user')->find($post);
 
+        return new PostResource(Post::findOrFail($post));
     }
 
     public function showComments($post){
@@ -67,35 +71,42 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Post $post
+     * @return PostResource
+     * @throws AuthorizationException
      */
-    public function update(SavePostRequest $request, $id)
+    public function update(Request $request, Post $post)
     {
-        $post = Post::find($id);
-        $post->body = $request->body;
-        $post->user_id = $request->user_id;
-        $post_save = $post->save();
-        if ($post_save){
-            return $post;
-        } else {
-            return response()->json('Comment update failed', 400);
-        }
+        $this->authorize('update', $post);
+
+        $request->validate([
+            'body' => 'required|max:255'
+        ]);
+
+        $post->update($request->all());
+
+        return new PostResource($post);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return Response
+     * @throws AuthorizationException
+     * @throws Exception
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        if (Post::destroy($id)){
-            return response()->json(['message' => 'Comment deleted successfully'], 204);
+        $this->authorize('delete', $post);
+
+        $deleted = $post->delete();
+
+        if ($deleted){
+            return response()->json(['message' => 'Post deleted successfully'], 200);
         } else {
-            return response()->json(['message' => 'Comment delete failed'], 404);
+            return response()->json(['message' => 'Post delete failed'], 404);
         }
     }
 }

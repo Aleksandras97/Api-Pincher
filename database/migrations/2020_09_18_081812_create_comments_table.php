@@ -20,6 +20,9 @@ class CreateCommentsTable extends Migration
             $table->foreignId('post_id');
             $table->timestamps();
 
+
+
+
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
@@ -27,8 +30,8 @@ class CreateCommentsTable extends Migration
 
             $table->foreign('post_id')
                 ->references('id')
-                ->on('posts')
-                ->onDelete('cascade');
+                ->on('posts')->onDelete('cascade');
+
 
 
         });
