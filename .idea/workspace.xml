@@ -3,12 +3,46 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:heroku" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="9b40474a-d058-4d10-848c-c88d19a8ba65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/database/factories/TagFactory.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/CommentSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/PostSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/RoleSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/TagSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeders/UserSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.rnd" beforeDir="false" afterPath="$PROJECT_DIR$/.rnd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Requests/SavePostRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/PostPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/PostPolicy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +57,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="composer.json" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -161,9 +196,11 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="ApacheConfig&#10;PHP" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/KTU/Darbas/softone/adminpanel" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -171,6 +208,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -178,6 +216,15 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Aleksandras\Desktop\Skaitynai\Pincher\app\Http\Controllers\Api" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="php artisan make:migration create_roles_table --table=roles" />
+      <command value="php artisan make:model ROle" />
+      <command value="cd" />
+      <command value="ls" />
+      <command value="php artisan make:model Role" />
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -219,7 +266,31 @@
       <workItem from="1601580671083" duration="32000" />
       <workItem from="1601583712682" duration="38000" />
       <workItem from="1601843180282" duration="948000" />
-      <workItem from="1601916804558" duration="3312000" />
+      <workItem from="1601916804558" duration="4180000" />
+      <workItem from="1601963592622" duration="6927000" />
+      <workItem from="1602059060066" duration="2544000" />
+      <workItem from="1602063324154" duration="2279000" />
+      <workItem from="1602149434392" duration="89000" />
+      <workItem from="1602270671994" duration="29000" />
+      <workItem from="1602613586660" duration="3299000" />
+      <workItem from="1602623824023" duration="5679000" />
+      <workItem from="1602680621662" duration="909000" />
+      <workItem from="1602765974859" duration="12000" />
+      <workItem from="1603018634227" duration="11536000" />
+      <workItem from="1603173790629" duration="12000" />
+      <workItem from="1603186565917" duration="21599000" />
+      <workItem from="1603273192774" duration="2081000" />
+      <workItem from="1603275279201" duration="2000" />
+      <workItem from="1603276884731" duration="1556000" />
+      <workItem from="1603359938181" duration="12000" />
+      <workItem from="1603360519674" duration="32000" />
+      <workItem from="1603363482645" duration="20000" />
+      <workItem from="1603366040358" duration="22000" />
+      <workItem from="1603370177918" duration="14000" />
+      <workItem from="1603370364977" duration="8000" />
+      <workItem from="1603456811068" duration="271000" />
+      <workItem from="1603524919842" duration="13396000" />
+      <workItem from="1603622975376" duration="17796000" />
     </task>
     <servers />
   </component>
@@ -236,28 +307,79 @@
       </list>
     </option>
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1603641499228">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603641499228" />
+    <state x="552" y="178" width="816" height="730" key="#Intentions" timestamp="1603213562664">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" width="816" height="730" key="#Intentions/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603213562664" />
+    <state x="1920" y="0" key="#Live_Templates" timestamp="1603275022996">
+      <screen x="1920" y="0" width="1280" height="680" />
+    </state>
+    <state x="1920" y="0" key="#Live_Templates/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603275022996" />
     <state x="725" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601030738360">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="725" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601030738360" />
-    <state x="557" y="145" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1601844068393">
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser" timestamp="1603273483744">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="557" y="145" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601844068393" />
+    <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603273483744" />
+    <state x="557" y="145" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603641844340">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="557" y="145" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603641844340" />
     <state x="2291" y="95" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1600618807256" />
-    <state x="585" y="87" key="CommitChangelistDialog2" timestamp="1601843884204">
+    <state x="740" y="445" key="#com.jetbrains.php.lang.intentions.PhpImportClassDialog#" timestamp="1603213437193">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="87" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601843884204" />
+    <state x="740" y="445" key="#com.jetbrains.php.lang.intentions.PhpImportClassDialog#/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603213437193" />
+    <state x="707" y="364" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1603214639602">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="707" y="364" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603214639602" />
+    <state x="585" y="87" key="CommitChangelistDialog2" timestamp="1603021667943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="585" y="87" key="CommitChangelistDialog2/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603021667943" />
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog" timestamp="1601121251407">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601121251407" />
-    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1600175708794">
+    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1603529587118">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1600175708794" />
+    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603529587118" />
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1603055715091">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603055715091" />
+    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1603055715090">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603055715090" />
+    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1603055715090">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603055715090" />
+    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1603055715090">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603055715090" />
     <state x="794" y="443" key="NewPhpFileDialog" timestamp="1600886155509">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -266,24 +388,42 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="335" y="225" key="RollbackChangesDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1600550160520" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1601843913120">
+    <state width="254" height="198" key="RunAnythingAction_Filter_Popup" timestamp="1603022347452">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601843913120" />
-    <state x="2204" y="0" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1600614833850" />
+    <state width="254" height="198" key="RunAnythingAction_Filter_Popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603022347452" />
+    <state x="2029" y="0" width="1230" height="680" key="SettingsEditor" timestamp="1603277046145">
+      <screen x="1920" y="0" width="1280" height="680" />
+    </state>
+    <state x="2029" y="0" width="998" height="680" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603277046145" />
+    <state x="1946" y="0" width="1230" height="680" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603275190049" />
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1603214272366">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603214272366" />
+    <state width="747" height="683" key="SwitcherDM" timestamp="1603643747020">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="747" height="683" key="SwitcherDM/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603643747020" />
+    <state width="498" height="446" key="SwitcherDM/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603625861331" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1602625803531">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1602625803531" />
     <state x="92" y="92" width="1736" height="856" key="dock-window-1" timestamp="1600722280791">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="dock-window-1/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1600722280791" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1601121071568">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2331" y="157" width="672" height="443" key="run.anything.popup" timestamp="1603274613760">
+      <screen x="1920" y="0" width="1280" height="680" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601121071568" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1601924789779">
+    <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603214226494" />
+    <state x="2331" y="157" width="672" height="443" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603274613760" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603644994552">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="415" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1601571305073" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601924789779" />
-    <state x="2335" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1600613470717" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603644994552" />
+    <state x="2335" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603625494588" />
   </component>
 </project>
