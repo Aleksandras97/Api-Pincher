@@ -2,15 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\Post;
+use App\Models\Comment;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PostPolicy
+class CommentPolicy
 {
     use HandlesAuthorization;
-
 
     public function before(User $user)
     {
@@ -21,14 +19,13 @@ class PostPolicy
 
     }
 
-    public function update(User $user, Post $post)
+    public function update(User $user, Comment $comment)
     {
-        return $post->user->is($user);
+        return $comment->user->is($user);
     }
 
-
-    public function delete(User $user, Post $post)
+    public function delete(User $user, Comment $comment)
     {
-        return $user->id === $post->user_id;
+        return $comment->user->is($user);
     }
 }
