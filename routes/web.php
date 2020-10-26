@@ -26,10 +26,10 @@ Route::get('/', function () {
 // PUT /posts/:id update post
 // DETELE /posts/:id detele a post
 
-Route::get('/posts', [PostController::class, 'index']);
-Route::post('/posts', [PostController::class, 'store']);
-Route::get('/posts/{post}', [PostController::class, 'show']);
+//Route::get('/posts', [PostController::class, 'index']);
+//Route::post('/posts', [PostController::class, 'store']);
+//Route::get('/posts/{post}', [PostController::class, 'show']);
 
 //Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
