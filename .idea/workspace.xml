@@ -28,13 +28,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b40474a-d058-4d10-848c-c88d19a8ba65" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -294,7 +288,9 @@
       <workItem from="1603722516446" duration="5326000" />
       <workItem from="1603730119780" duration="3646000" />
       <workItem from="1603734412619" duration="9000" />
-      <workItem from="1603734491303" duration="4301000" />
+      <workItem from="1603734491303" duration="6423000" />
+      <workItem from="1603781526801" duration="1414000" />
+      <workItem from="1604052366739" duration="604000" />
     </task>
     <servers />
   </component>
@@ -456,11 +452,11 @@
     </state>
     <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603214226494" />
     <state x="2331" y="157" width="672" height="443" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603274613760" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603736574331">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1603742569753">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="415" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1601571305073" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603736574331" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603742569753" />
     <state x="2335" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603625494588" />
   </component>
 </project>

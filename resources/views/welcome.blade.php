@@ -1,52 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pincher</title>  
 
-        <title>WebSite</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-        </style>
-
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-
-            .text {
-              color:#EF3B2D;
-              text-align: center;
-              font-size: 4em;
-            }
-        </style>
+        <link rel="stylesheet" href="/css/main.css">
+        <script src="/js/app.js" defer></script>
     </head>
-    <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
-                        @endif
-                    @endif
-                </div>
-            @endif
-
-            <div>
-
-              <h1 class="text">Hello world </h1>
-
-            </div>
+    <body class="bg-blue-500">
+        <div id="app">
+            <example-component></example-component>
         </div>
     </body>
 </html>
