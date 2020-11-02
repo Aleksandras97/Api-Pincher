@@ -1,23 +1,30 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
-
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div>{{ user.username }}</div>
+    <strong>Followers: </strong> {{ followers }}
+    <button @click="followUser">Follow</button>
 </template>
 
 <script>
+import {ref} from 'vue'
     export default {
+        data() {
+            return {
+                followers: 0,
+                user: {
+                    id: 1,
+                    username: 'Aleksandr',
+                    email: 'Aleksandr@example.com',
+                    isAdmin: false                    
+                }
+            }
+        },
+        methods: {
+            followUser() {
+                this.followers++
+            }
+        },
         mounted() {
-            console.log('Component mounted.')
+            this.followUser();
         }
     }
 </script>
