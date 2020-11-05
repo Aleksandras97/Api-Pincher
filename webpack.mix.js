@@ -16,7 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     require('tailwindcss'),
     ])
     .vue()
-    .browserSync({
-        proxy: 'pincher.test'
-    });
-    // .browserSync('pincher.test');
+    .browserSync('pincher.test');
