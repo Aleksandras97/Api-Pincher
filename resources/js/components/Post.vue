@@ -5,9 +5,9 @@
             <img src="https://i.pravatar.cc/50" alt="avatar" class="rounded-full">
         </div>
         <div>
-            <h5 class="font-bold mb-4">Aleksandras</h5>
+            <h5 class="font-bold mb-4">{{ username }}</h5>
             
-            <p class="text-sm">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident facilis dolorem quibusdam sapiente beatae, maiores asperiores, voluptas officia nihil magni dolor inventore nulla voluptate? Sunt sequi consequuntur blanditiis? Quisquam, ratione.</p>
+            <p class="text-sm">{{ post.body }}</p>
         </div>
     </div>
 
@@ -15,6 +15,15 @@
 
 <script>
     export default {
-        
+        props: {
+            username: {
+                type: String,
+                required: true
+            },
+            post: {
+                type: Object,
+                required: true
+            }
+        }
     }
 </script>
