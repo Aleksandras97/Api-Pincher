@@ -2,7 +2,7 @@
 
     <div class="px-8 py-4 border-b border-gray-500">
 
-        <form action="" @submit.prevent="createNewPost" :class="{'text-red-500': newPostCharacterCount > 20}">
+        <form action="" @submit.prevent="createNewPost" :class="{'text-red-500': newPostCharacterCount > 5}">
             <textarea id="newPost" class="w-full" placeholder="Post!" v-model="state.newPostBody" />
             <hr class="my-4">
 

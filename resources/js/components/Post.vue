@@ -5,25 +5,29 @@
             <img src="https://i.pravatar.cc/50" alt="avatar" class="rounded-full">
         </div>
         <div>
-            <h5 class="font-bold mb-4">{{ username }}</h5>
+            <h5 class="font-bold">{{ post.user.name }}</h5>
+            <h5 class="font-semibold text-xs mb-4">{{ post.user.email }}</h5>
             
-            <p class="text-sm">{{ post.body }}</p>
+            <p class="text-sm"> {{ post.body }} </p>
         </div>
     </div>
 
 </template>
 
 <script>
+import { onMounted } from 'vue'
     export default {
         props: {
-            username: {
-                type: String,
-                required: true
-            },
             post: {
                 type: Object,
                 required: true
             }
+        },
+        setup(){
+
+            onMounted(() => {
+                // console.log("post props" , post)
+            })
         }
     }
 </script>

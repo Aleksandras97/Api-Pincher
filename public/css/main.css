@@ -22074,23 +22074,17 @@ video {
   letter-spacing: 0.05em;
 }
 
+/* 
 .active{
-  --text-opacity: 1;
-  color: #2f855a;
-  color: rgba(47, 133, 90, var(--text-opacity));
-  font-size: 1.5rem;
+    @apply text-green-700 text-2xl;
 }
 
-@media (min-width: 768px) {
-  .active {
-    border-top-left-radius: 0.25rem;
-    border-bottom-left-radius: 0.25rem;
-    border-left-width: 2px;
-    --border-opacity: 1;
-    border-color: #2f855a;
-    border-color: rgba(47, 133, 90, var(--border-opacity));
-  }
-}
+
+@screen md {
+    .active {
+        @apply rounded-l border-l-2 border-green-700;
+    }
+}  */
 
 @media (min-width: 640px){
   .sm\:container{
@@ -107714,4 +107708,4 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
-} 
+}

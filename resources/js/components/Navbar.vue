@@ -22,14 +22,13 @@
                 <ul class="text-xl mt-6">
                     <li>
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/" exact>Home
-                        </router-link>
+                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/" exact>Home</router-link>
 
                     </li>
                     
                     <li>
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/Profile" exact>Profile                </router-link>
+                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/Profile" exact>Profile</router-link>
                     
                     </li>
 

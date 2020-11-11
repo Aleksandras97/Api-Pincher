@@ -18,28 +18,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth:api')->group(function (){
-    //logout
-    Route::post('/logout', [AuthController::class, 'logout']);
-    //User routes
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-    //Post routes
-    Route::get('posts', [PostController::class, 'index']);
-    Route::post('posts', [PostController::class, 'store']);
-    Route::get('posts/{post}', [PostController::class, 'show']);
-    Route::put('posts/{post}', [PostController::class, 'update']);
-    Route::delete('posts/{post}', [PostController::class, 'destroy']);
-    Route::get('/posts/{post}/comments', [PostController::class, 'showComments']);
-    //Comment routes
-    Route::get('comments', [CommentController::class, 'index']);
-    Route::post('comments', [CommentController::class, 'store']);
-    Route::get('comments/{comment}', [CommentController::class, 'show']);
-    Route::put('comments/{comment}', [CommentController::class, 'update']);
-    Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
-    //Tag routes
-    Route::apiResource('tags', TagController::class);
+    
 });
+
+//logout
+Route::post('/logout', [AuthController::class, 'logout']);
+//User routes
+Route::get('/user', function (Request $request) {
+    return $request->user();
+});
+//Post routes
+
+//Comment routes
+Route::get('comments', [CommentController::class, 'index']);
+Route::post('comments', [CommentController::class, 'store']);
+Route::get('comments/{comment}', [CommentController::class, 'show']);
+Route::put('comments/{comment}', [CommentController::class, 'update']);
+Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+//Tag routes
+Route::apiResource('tags', TagController::class);
+
+Route::get('posts', [PostController::class, 'index']);
+Route::post('posts', [PostController::class, 'store']);
+Route::get('posts/{post}', [PostController::class, 'show']);
+Route::put('posts/{post}', [PostController::class, 'update']);
+Route::delete('posts/{post}', [PostController::class, 'destroy']);
+Route::get('/posts/{post}/comments', [PostController::class, 'showComments']);
 
 //Login and Register
 Route::post('/register', [AuthController::class, 'register']);

@@ -1,12 +1,9 @@
 <template>
-    
-    <div class="border border-gray-500">
 
-        <Timeline></Timeline>
+    <Timeline></Timeline>
 
 
-    </div>
-    
+
 </template>
 
 
@@ -18,6 +15,6 @@ export default {
     components: {
         Timeline,
         Navbar
-    }
+    },
 }
 </script>

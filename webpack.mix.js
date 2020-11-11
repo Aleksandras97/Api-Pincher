@@ -16,4 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
     require('tailwindcss'),
     ])
     .vue()
-    .browserSync('pincher.test');
+    .browserSync('homestead.test');

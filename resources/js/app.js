@@ -2,7 +2,9 @@ require('./bootstrap');
 
 import { createApp } from 'vue'
 import Navbar from './components/Navbar.vue'
+import store from './store'
 import router from './routes'
+
 
 
 createApp({
@@ -10,4 +12,4 @@ createApp({
         Navbar
     }
     
-}).use(router).mount('#app')
+}).use(router).use(store).mount('#app')
