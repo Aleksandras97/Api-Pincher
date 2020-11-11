@@ -23,6 +23,7 @@ class PostController extends Controller
     {
 
         $posts = Post::all();
+        // return PostResource::collection(Post::with('user')->with('comments')->get());
         return PostResource::collection($posts);
     }
 
@@ -59,6 +60,7 @@ class PostController extends Controller
 
         return new PostResource(Post::findOrFail($post));
     }
+
 
     public function showComments($post){
         if (Post::find($post) == null)

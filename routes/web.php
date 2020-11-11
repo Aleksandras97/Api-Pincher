@@ -17,19 +17,4 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('welcome');
 });
-// GET, POST, PUT, DELETE
 
-
-// GET /posts all posts
-// GET /posts/:id 1 post
-// POST /posts create post
-// PUT /posts/:id update post
-// DETELE /posts/:id detele a post
-
-//Route::get('/posts', [PostController::class, 'index']);
-//Route::post('/posts', [PostController::class, 'store']);
-//Route::get('/posts/{post}', [PostController::class, 'show']);
-
-//Auth::routes();
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
