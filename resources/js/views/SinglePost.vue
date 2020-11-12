@@ -38,28 +38,7 @@ export default {
             })
 
             state.post = post
-            console.log(post)
-
-
-
-            // console.log(postId.value)
-            // const {data: post} = await axios.get(`/api/posts/${postId.value}`);
-
-            // if(post){
-            //     state.post = post
-            //     console.log("Single post", state.post.user)
-            
-
-
-            // }
-
-            
-            
-
-
         })
-
-        // onMounted(() => console.log(state.user.comments[0].user.username))
 
         return {
             state,

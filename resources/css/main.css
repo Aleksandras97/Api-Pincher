@@ -11,6 +11,15 @@
     @apply bg-teal-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer tracking-wider;
 }
 
+.login-input{
+    @apply bg-gray-200 rounded w-full text-gray-700  border-b-4 border-gray-300 transition duration-500 px-3 pb-3;
+}
+
+.login-input:focus {
+   @apply border-purple-600;
+   @apply outline-none;
+}
+
 /* 
 .active{
     @apply text-green-700 text-2xl;

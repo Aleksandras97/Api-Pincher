@@ -30,6 +30,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        
         $http = new \GuzzleHttp\Client();
         try {
             $response = $http->request('POST', config('services.passport.login_endpoint'), [

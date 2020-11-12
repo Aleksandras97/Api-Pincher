@@ -4,11 +4,13 @@ import Profile from './views/Profile.vue'
 import SinglePost from './views/SinglePost.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
+import Logout from './views/Logout.vue'
 
 
 const routes = [
     {
         path: '/',
+        name: 'Home',
         component: Home
         
     },
@@ -21,19 +23,21 @@ const routes = [
         path: '/Post/:postId',
         name: 'SinglePost',
         component: SinglePost,
-        props: true
     },
     {
         path: '/Login',
         name: 'Login',
         component: Login,
-        props: true
     },
     {
         path: '/Register',
         name: 'Register',
         component: Register,
-        props: true
+    },
+    {
+        path: '/Logout',
+        name: 'Logout',
+        component: Logout,
     }
 ]
 
