@@ -21,6 +21,7 @@
 import { onMounted, reactive, ref } from 'vue';
 import Post from "./Post"
 import CreatePostPanel from "./CreatePostPanel"
+import { useStore } from 'vuex';
 
 export default {
     components: {
@@ -28,7 +29,7 @@ export default {
         CreatePostPanel
     },
     setup(props, ctx) {
-
+        const store = useStore();
         const state = reactive({
             posts: []
         });
@@ -47,6 +48,8 @@ export default {
         }
 
         onMounted(() => {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.token
+
             axios.get('/api/posts').then(
                 response => state.posts = response.data.data
                 

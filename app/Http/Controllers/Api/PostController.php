@@ -27,6 +27,14 @@ class PostController extends Controller
         return PostResource::collection($posts);
     }
 
+    public function userIndex()
+    {
+
+        $posts = auth()->user()->posts;
+        
+        return PostResource::collection($posts);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -36,11 +44,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
 //        dd($request->all());
-        $request->validate([
+        $data = $request->validate([
             'body' => 'required|max:255'
         ]);
-
-        $post = auth()->user()->posts()->create($request->all());
+        // dd(auth()->user()->posts());
+        $post = auth()->user()->posts()->create($data);
 
         return new PostResource($post);
     }
