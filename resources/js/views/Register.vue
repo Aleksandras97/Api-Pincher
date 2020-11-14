@@ -13,21 +13,26 @@
         </section>
 
         <section class="mt-10">
-            <form action="" class="flex flex-col">
+            <form action="#" class="flex flex-col" @submit.prevent="register">
+
+                <div class="mb-6 pt-3 rounded bg-gray-200">
+                  <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="username">Username</label>
+                  <input type="text" name="username" id="username" class="login-input" autocomplete="off" v-model="state.username">
+                </div>
 
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="name">Name</label>
-                    <input type="text" name="name" id="name" class="login-input" autocomplete="off">
+                    <input type="text" name="name" id="name" class="login-input" autocomplete="off" v-model="state.name">
                 </div>
                 
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
-                    <input type="text" id="email" class="login-input" autocomplete="off">
+                    <input type="text" id="email" class="login-input" autocomplete="off" v-model="state.email">
                 </div>
 
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Password</label>
-                    <input type="password" id="password" class="login-input">
+                    <input type="password" id="password" class="login-input" v-model="state.password">
                 </div>
 
 
@@ -44,7 +49,37 @@
 </template>
 
 <script>
+import { reactive } from 'vue'
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 export default {
-    
+    setup(){
+        const store = useStore();
+        const router = useRouter();
+
+        const state = reactive({
+            username: '',
+            name: '',
+            email: '',
+            password: '',
+        });
+
+        function register() {
+            store.dispatch('register', {
+                username: state.username,
+                name: state.name,
+                email: state.email,
+                password: state.password,
+            })
+                .then(responce => {
+                    router.push({ name: 'Login'})
+                })
+        }
+
+        return {
+            state,
+            register
+        }
+    }
 }
 </script>

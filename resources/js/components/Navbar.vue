@@ -19,16 +19,16 @@
             </div>
             <div :class="state.isOpen ? 'block' : 'hidden'" class="md:flex">
 
-                <ul class="text-xl mt-6">
+                <ul class="text-xl mt-6" >
                     <li>
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/" exact>Home</router-link>
+                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" :to="{ name: 'Home'}" exact>Home</router-link>
 
                     </li>
                     
                     <li>
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" to="/Profile" exact>Profile</router-link>
+                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" :to="{ name: 'Profile'}" exact>Profile of</router-link>
                     
                     </li>
 
@@ -44,21 +44,28 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
+import { useStore } from 'vuex';
     export default {
         setup() {
+            const store = useStore();
             const state = reactive({
                 isOpen: false,
             });
+            
+            
+            const loggedin = computed(() => store.getters.loggedIn)
+
+            
 
             function toggle() {
                 state.isOpen = !state.isOpen
                 console.log(state.isOpen)
             }
-
             return {
                 state,
-                toggle
+                toggle,
+                loggedin,
             }
         }
     }

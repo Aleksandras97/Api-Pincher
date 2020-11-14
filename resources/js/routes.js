@@ -1,41 +1,58 @@
-import {createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 import Home from './views/Home.vue'
 import Profile from './views/Profile.vue'
 import SinglePost from './views/SinglePost.vue'
 import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Logout from './views/Logout.vue'
+import store from './store';
 
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: Home
+        component: Home,
+        meta: {
+            requiresAuth: true
+        }
         
     },
     {
-        path: '/Profile',
-        component: Profile
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+            requiresAuth: true
+        }
         
     },
     {
-        path: '/Post/:postId',
+        path: '/post/:postId',
         name: 'SinglePost',
         component: SinglePost,
+        meta: {
+            requiresAuth: true
+        }
     },
     {
-        path: '/Login',
+        path: '/login',
         name: 'Login',
         component: Login,
+        meta: {
+            requiresVisitor: true
+        }
     },
     {
-        path: '/Register',
+        path: '/register',
         name: 'Register',
         component: Register,
+        meta: {
+            requiresVisitor: true
+        }
     },
     {
-        path: '/Logout',
+        path: '/logout',
         name: 'Logout',
         component: Logout,
     }
@@ -45,6 +62,34 @@ const router  = createRouter({
     history: createWebHashHistory(),
     routes,
     linkActiveClass: 'active'
+})
+
+router.beforeEach( async (to, from , next) =>{
+    
+    
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+
+        if(!store.getters.loggedIn) {
+            next({
+                name: 'Login',
+            })
+        } else {
+            next()
+        }
+
+    } else if (to.matched.some(record => record.meta.requiresVisitor)) {
+
+        if(store.getters.loggedIn) {
+            next({
+                name: 'Home',
+            })
+        } else {
+            next()
+        }
+
+    } else {
+        next()
+    }
 })
 
 export default router;

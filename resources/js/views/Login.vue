@@ -16,7 +16,7 @@
             <form action="" @submit.prevent="login" class="flex flex-col">
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
-                    <input type="text" name="username"  id="username" class="login-input" autocomplete="off" v-model="state.username">
+                    <input type="text" name="username"  id="username" class="login-input" v-model="state.username">
                 </div>
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="password">Password</label>
@@ -41,7 +41,7 @@
 <script>
 import { reactive } from 'vue';
 import { useStore } from 'vuex'
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 export default {
     setup(){
@@ -51,16 +51,29 @@ export default {
         const state = reactive({
             username: '',
             password: '',
+            user: null,
         });
 
         function login() {
+            
+
             store.dispatch('retrieveToken', {
                 username: state.username,
                 password: state.password,
             })
                 .then(responce => {
+                    
+                    // store.dispatch('retrieveUser')
+                    // state.user = await store.state.user
+                    // console.log(state.user)
+                    
+
+
                     router.push({ name: 'Home'})
+
                 })
+            
+            
             
             
         }

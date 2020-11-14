@@ -27,6 +27,14 @@ class PostController extends Controller
         return PostResource::collection($posts);
     }
 
+    public function userIndex()
+    {
+
+        $posts = auth()->user()->posts;
+        
+        return PostResource::collection($posts);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
