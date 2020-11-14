@@ -20,17 +20,38 @@
             <div :class="state.isOpen ? 'block' : 'hidden'" class="md:flex">
 
                 <ul class="text-xl mt-6" >
-                    <li>
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" :to="{ name: 'Home'}" exact>Home</router-link>
+                    <template v-if="authenticated">
+                        <li class="p-2">
 
-                    </li>
+                            <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Home'}" exact>Home</router-link>
+
+                        </li>
+                        
+                        <li class="p-2">
+
+                            <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Profile', params: { username: user?.username } }" exact>Profile of</router-link>
+                            <!-- {{ user.username }} -->
+                        </li>
+
+                        <li class="p-2">
+                            
+                                <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Logout'}" exact>Logout</router-link>
+
+                        </li>
+                    </template>
+
                     
-                    <li>
+                    <template v-else>
+                        <li class="p-2">
+                            <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Login'}" exact>Login</router-link>  
 
-                        <router-link class="bg-white py-2 px-4 hover:text-green-800 font-semibold md:block" :to="{ name: 'Profile'}" exact>Profile of</router-link>
-                    
-                    </li>
+                        </li>
+
+                        <li class="p-2">
+                            <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Register'}" exact>Register</router-link>
+                        </li>
+                    </template>
 
 
                 </ul>
@@ -53,19 +74,20 @@ import { useStore } from 'vuex';
                 isOpen: false,
             });
             
-            
-            const loggedin = computed(() => store.getters.loggedIn)
+            const authenticated = computed(() => store.getters.authenticated)
 
-            
+            const user = computed(() => store.getters.authUser)
 
             function toggle() {
                 state.isOpen = !state.isOpen
                 console.log(state.isOpen)
             }
+
             return {
                 state,
                 toggle,
-                loggedin,
+                authenticated,
+                user
             }
         }
     }

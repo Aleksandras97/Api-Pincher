@@ -2,12 +2,14 @@
     
     <div class="p-12 md:p-12 text-center lg:text-left">
         <!-- Image for mobile view-->
-        <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center" style="background-image: url('https://i.pravatar.cc/3500')"></div>
-        
-        <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ authUser.name }}</h1>
+        <!-- <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center" style="background-image: url('https://i.pravatar.cc/3500')"></div> -->
+        <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center">
+            <img :src="`https://i.pravatar.cc/3500?u=${ state.user.email }`" alt="avatar" class="rounded-full">
+        </div>
+        <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ state.user.name }}</h1>
         <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
         
-        <p class="pt-8 text-sm">@ {{ authUser.username }}</p>
+        <p class="pt-8 text-sm">@ {{ state.user.username }}</p>
         <p>Count: {{ count }}</p>
         <button @click="increment()">Increment</button>
         <button @click="decrement()">Decrement</button>
@@ -26,7 +28,7 @@
     </router-link> -->
     <div class="md:border-t md:border-gray-500">
 
-        <Post v-for="post in state.posts" :key="post.id" :post="post"></Post>
+        <Post v-for="post in state.user.posts" :key="post.id" :post="post"></Post>
         
     </div>
 
@@ -38,6 +40,7 @@
 import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 import Post from '../components/Post'
+import { useRoute } from 'vue-router'
 
 export default {
     components: {
@@ -45,16 +48,18 @@ export default {
     },
     setup(){
         const store = useStore();
+        const route = useRoute();
         const state = reactive({
-            posts: [],
-            user: null,
+            user: {},
         })
 
         
         const count = computed(() => store.state.count);
 
         const authUser = computed(() => store.getters.authUser)
-            
+
+        const name = computed(() => route.params.username)
+        // const username = 'Marcella'
 
         function increment() {
             store.commit("increment");
@@ -66,24 +71,23 @@ export default {
 
         onMounted( async () => {
 
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.token
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.Auth.token
 
-            const posts = await axios.get(`/api/users/41/posts`)
+
+            const user = await axios.get(`api/profiles/${name.value}`)
             .then(response => {
-                return response.data.data
+                state.user = response.data.data
             })
 
-            state.posts = posts
-
-            // state.user = store.state.user
+            // state.user = user
+            // console.log(user)
         })
 
         return {
             state,
             count,
             increment,
-            decrement,
-            authUser
+            decrement
         }
     }
 }

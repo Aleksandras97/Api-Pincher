@@ -11,6 +11,12 @@ class ProfilesController extends Controller
 {
     public function show(User $user)
     {
+        // dd(User::findOrFail($user) == null);
+        // if (User::find($user) == null)
+        // {
+        //     return response()->json(['error' => 'Profile not found'], 404);
+        // }
+
         return new UserResource($user);
     }
 

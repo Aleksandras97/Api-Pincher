@@ -19,7 +19,7 @@ const routes = [
         
     },
     {
-        path: '/profile',
+        path: '/profile/:username',
         name: 'Profile',
         component: Profile,
         meta: {
@@ -64,12 +64,12 @@ const router  = createRouter({
     linkActiveClass: 'active'
 })
 
-router.beforeEach( async (to, from , next) =>{
+router.beforeEach( async (to, from , next) => {
     
     
     if(to.matched.some(record => record.meta.requiresAuth)) {
 
-        if(!store.getters.loggedIn) {
+        if(!store.getters.authenticated) {
             next({
                 name: 'Login',
             })
@@ -79,7 +79,7 @@ router.beforeEach( async (to, from , next) =>{
 
     } else if (to.matched.some(record => record.meta.requiresVisitor)) {
 
-        if(store.getters.loggedIn) {
+        if(store.getters.authenticated) {
             next({
                 name: 'Home',
             })

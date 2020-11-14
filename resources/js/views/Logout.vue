@@ -12,10 +12,9 @@ export default {
         const router = useRouter();
 
         onMounted(() => {
-            store.dispatch('destroyToken')
-                .then(responce => {
-                        router.push({ name: 'Home'})
-                    })
+            store.dispatch('signOut').then(() => {
+                router.push({ name: 'Home'})
+            })
         })
 
         return {

@@ -9,7 +9,7 @@
             
 
             <footer class="flex justify-between">
-                <img src="https://i.pravatar.cc/40" alt="avatar" class="rounded-full">
+                <img :src="`https://i.pravatar.cc/50?u=${ user.email }`" alt="avatar" class="rounded-full">
 
                 <div class="flex">
 
@@ -31,14 +31,18 @@
 
 <script>
 import { reactive, computed } from 'vue';
+import { useStore } from 'vuex';
 
 export default {
     setup(props, ctx) {
+        const store = useStore();
         const state = reactive({
             newPostBody: '',
         });
 
         const newPostCharacterCount = computed(() => state.newPostBody.length);
+
+        const user = computed(() => store.getters.authUser)
 
         function createNewPost() {
             if(state.newPostBody) {
@@ -51,7 +55,8 @@ export default {
         return {
             state,
             newPostCharacterCount,
-            createNewPost
+            createNewPost,
+            user
         }
     },
 }

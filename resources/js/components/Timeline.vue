@@ -1,5 +1,7 @@
 <template>
 
+        
+        {{ user?.username }} {{ authenticated }}
 
         <CreatePostPanel @add-post="addPost"></CreatePostPanel>
 
@@ -7,9 +9,10 @@
         <h4 class="font-bold text-gray-700 bg-gray-300 text-xl py-2 px-4 pb-2 border-b border-gray-500">Latests Posts</h4>
 
         <!-- posts -->
-        <router-link v-for="post in state.posts" :key="post.id" :to="{ name: 'SinglePost', params: { postId: post.id } }">
+        <div v-for="post in state.posts" :key="post.id" >
             <Post :post="post"></Post>
-        </router-link>
+        </div>
+        
         
 
 
@@ -18,7 +21,7 @@
 
 
 <script>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, computed } from 'vue';
 import Post from "./Post"
 import CreatePostPanel from "./CreatePostPanel"
 import { useStore } from 'vuex';
@@ -34,6 +37,10 @@ export default {
             posts: []
         });
 
+        const authenticated = computed(() => store.getters.authenticated)
+
+        const user = computed(() => store.getters.authUser)
+
         function addPost(post) {
             // axios.post('api/posts', {
 
@@ -47,10 +54,10 @@ export default {
             // });
         }
 
-        onMounted(() => {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.token
+        onMounted( async () => {
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.Auth.token
 
-            axios.get('/api/posts').then(
+            await axios.get('/api/posts').then(
                 response => state.posts = response.data.data
                 
                 );
@@ -58,7 +65,9 @@ export default {
 
         return {
             state,
-            addPost
+            addPost,
+            user,
+            authenticated
         }
     },
 }
