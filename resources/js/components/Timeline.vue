@@ -1,18 +1,16 @@
 <template>
 
-        
-        {{ user?.username }} {{ authenticated }}
 
         <CreatePostPanel @add-post="addPost"></CreatePostPanel>
-
 
         <h4 class="font-bold text-gray-700 bg-gray-300 text-xl py-2 px-4 pb-2 border-b border-gray-500">Latests Posts</h4>
 
         <!-- posts -->
-        <div v-for="post in state.posts" :key="post.id" >
-            <Post :post="post"></Post>
-        </div>
-        
+        <transition-group name="fade" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
+            <div v-for="(post, index) in state.posts" :key="post.id" >
+                <Post @delete-post="deletePost" :post="post" :index="index"></Post>
+            </div>
+        </transition-group>
         
 
 
@@ -42,16 +40,22 @@ export default {
         const user = computed(() => store.getters.authUser)
 
         function addPost(post) {
-            // axios.post('api/posts', {
+            axios.post('api/posts', { body: post })
+                    .then(response => {
+                        state.posts.unshift(response.data.data)
+                    })
+                    .catch(error => console.log(error))
+        }
 
-            // })
-            //     .then(response => {
+        function deletePost(post) {
+            console.log(post.PostIndex)
+            axios.delete(`api/posts/${post.PostId}`)
+                .then(response => {
 
-            //     })
-            // state.user.posts.unshift({
-            //     id: state.user.posts.length + 1,
-            //     body: post,
-            // });
+                        state.posts.splice(post.PostIndex, 1)
+
+                    })
+                .catch(error => console.log(error)) 
         }
 
         onMounted( async () => {
@@ -66,8 +70,10 @@ export default {
         return {
             state,
             addPost,
+            deletePost,
             user,
-            authenticated
+            authenticated,
+            
         }
     },
 }

@@ -22,7 +22,7 @@ class PostController extends Controller
     public function index()
     {
 
-        $posts = Post::all();
+        $posts = Post::latest()->get();
         // return PostResource::collection(Post::with('user')->with('comments')->get());
         return PostResource::collection($posts);
     }
@@ -51,6 +51,7 @@ class PostController extends Controller
         $post = auth()->user()->posts()->create($data);
 
         return new PostResource($post);
+        // return ['message' => 'Posted!'];
     }
 
     /**

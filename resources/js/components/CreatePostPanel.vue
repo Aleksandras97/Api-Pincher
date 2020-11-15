@@ -2,11 +2,11 @@
 
     <div class="px-8 py-4 border-b border-gray-500">
 
-        <form action="" @submit.prevent="createNewPost" :class="{'text-red-500': newPostCharacterCount > 5}">
+        <form action="" @submit.prevent="sumbitPost" :class="{'text-red-500': newPostCharacterCount > 5}">
             <textarea id="newPost" class="w-full" placeholder="Post!" v-model="state.newPostBody" />
             <hr class="my-4">
 
-            
+            <!-- <span class="help text-red-400" v-text="state.errors.get('body')"></span> -->
 
             <footer class="flex justify-between">
                 <img :src="`https://i.pravatar.cc/50?u=${ user.email }`" alt="avatar" class="rounded-full">
@@ -34,20 +34,21 @@ import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
-    setup(props, ctx) {
+    setup(props, context) {
         const store = useStore();
         const state = reactive({
             newPostBody: '',
+            post: {},
         });
 
         const newPostCharacterCount = computed(() => state.newPostBody.length);
 
         const user = computed(() => store.getters.authUser)
 
-        function createNewPost() {
+        function sumbitPost() {
             if(state.newPostBody) {
-                ctx.emit('add-post', state.newPostBody)
-                state.newPostBody = '';
+                context.emit('add-post', state.newPostBody)
+                state.newPostBody = ''
             }
         }
         
@@ -55,7 +56,7 @@ export default {
         return {
             state,
             newPostCharacterCount,
-            createNewPost,
+            sumbitPost,
             user
         }
     },
