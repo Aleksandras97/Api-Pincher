@@ -11,8 +11,9 @@
     <body class="text-gray-600 font-body">
         <div id="app">
 
-             <Master></Master>
+            <Master></Master>
 
+            <div id="modals"></div>
         </div>
         <script src="/js/app.js"></script>
     </body>

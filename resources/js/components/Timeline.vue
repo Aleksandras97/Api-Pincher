@@ -23,6 +23,7 @@ import { onMounted, reactive, computed } from 'vue';
 import Post from "./Post"
 import CreatePostPanel from "./CreatePostPanel"
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 
 export default {
     components: {
@@ -31,6 +32,9 @@ export default {
     },
     setup(props, ctx) {
         const store = useStore();
+        const route = useRoute();
+
+
         const state = reactive({
             posts: []
         });
@@ -40,32 +44,37 @@ export default {
         const user = computed(() => store.getters.authUser)
 
         function addPost(post) {
+
             axios.post('api/posts', { body: post })
                     .then(response => {
                         state.posts.unshift(response.data.data)
                     })
                     .catch(error => console.log(error))
+
         }
 
-        function deletePost(post) {
-            console.log(post.PostIndex)
-            axios.delete(`api/posts/${post.PostId}`)
+        async function deletePost(post) {
+            console.log("test", post)
+            await axios.delete(`api/posts/${post.PostId}`)
                 .then(response => {
 
                         state.posts.splice(post.PostIndex, 1)
 
                     })
                 .catch(error => console.log(error)) 
+
         }
 
         onMounted( async () => {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.Auth.token
 
             await axios.get('/api/posts').then(
-                response => state.posts = response.data.data
-                
+                response => {
+                    state.posts = response.data.data
+                    }
+
                 );
         })
+
 
         return {
             state,

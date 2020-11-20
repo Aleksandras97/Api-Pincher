@@ -12,7 +12,11 @@
 }
 
 .btn-sm{
-    @apply bg-white text-blue-400 font-bold pb-1 px-2 rounded-full cursor-pointer;
+    @apply text-blue-400 rounded-full bg-white p-1 border border-red-100;
+}
+
+.btn-sm:hover {
+    @apply bg-blue-200
 }
 
 .login-input{
