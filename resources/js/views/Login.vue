@@ -51,31 +51,21 @@ export default {
         const state = reactive({
             username: '',
             password: '',
-            user: null,
         });
 
         function login() {
             
-
-            store.dispatch('retrieveToken', {
+            store.dispatch('signIn', {
                 username: state.username,
                 password: state.password,
             })
-                .then(responce => {
-                    
-                    // store.dispatch('retrieveUser')
-                    // state.user = await store.state.user
-                    // console.log(state.user)
-                    
-
-
+                .then(() => {
                     router.push({ name: 'Home'})
-
                 })
-            
-            
-            
-            
+                .catch(() => {
+                    console.log('login failed')
+                })
+
         }
 
         return {

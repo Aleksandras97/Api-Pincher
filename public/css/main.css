@@ -22074,6 +22074,27 @@ video {
   letter-spacing: 0.05em;
 }
 
+.btn-sm{
+  --text-opacity: 1;
+  color: #63b3ed;
+  color: rgba(99, 179, 237, var(--text-opacity));
+  border-radius: 9999px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  padding: 0.25rem;
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #fff5f5;
+  border-color: rgba(255, 245, 245, var(--border-opacity));
+}
+
+.btn-sm:hover {
+  --bg-opacity: 1;
+  background-color: #bee3f8;
+  background-color: rgba(190, 227, 248, var(--bg-opacity))
+}
+
 .login-input{
   --bg-opacity: 1;
   background-color: #edf2f7;

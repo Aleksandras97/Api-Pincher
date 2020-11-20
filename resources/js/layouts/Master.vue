@@ -2,22 +2,23 @@
     <div class="grid md:grid-cols-3"> 
 
         <div>
-            <Navbar v-if="loggedin" ></Navbar>
+            <Navbar></Navbar>
         </div>
         
         
         <main class=" px-4 md:col-span-2" style="max-width: 650px">
 
             <div class="p-3 flex justify-center md:justify-end md:border-r md:border-l  border-gray-500">
-             <router-link v-if="!loggedin" class="btn hover:bg-teal-900" :to="{ name: 'Login'}" >Login</router-link> 
-             <router-link v-if="!loggedin" class="btn hover:bg-teal-900 mx-2" :to="{ name: 'Register'}" >Register</router-link>
-             <router-link v-if="loggedin" class="btn hover:bg-teal-900" :to="{ name: 'Logout'}" >Logout</router-link>
              
+             
+                Hello
                 
                 
             </div>
 
             <div class="md:border md:border-gray-500 shadow-2xl bg-white lg:mx-0">
+
+                
 
                 <router-view></router-view>
                 
@@ -43,12 +44,11 @@ export default {
         const state = reactive({
             user: null,
         });
-
-        const loggedin = computed(() => store.getters.loggedIn)
+        // console.log(store.getters)
+        
         
         return {
-            state,
-            loggedin
+            state
         }
     }
 }
