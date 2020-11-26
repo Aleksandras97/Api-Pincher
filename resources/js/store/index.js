@@ -4,10 +4,10 @@ import { AuthModule } from './auth'
 
 
 const state = {
-    count: 0
+    count: 0,
 }
 const getters = {
-    
+
 }
 const mutations = {
     increment(state) {
@@ -19,8 +19,7 @@ const mutations = {
 }
 
 const actions = {
-        
-    
+
 }
 
 const modules = {

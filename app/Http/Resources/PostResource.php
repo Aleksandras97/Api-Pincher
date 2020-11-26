@@ -18,6 +18,7 @@ class PostResource extends JsonResource
         return  [
             'id' => $this->id,
             'body' => $this->body,
+            'created_at' => $this->created_at->diffForHumans(),
             'user' => [
                 'username' => $this->user->username ?? '',
                 'name' => $this->user->name ?? '',

@@ -11,7 +11,7 @@
                 <Post @delete-post="deletePost" :post="post" :index="index"></Post>
             </div>
         </transition-group>
-        
+
 
 
 
@@ -43,6 +43,7 @@ export default {
 
         const user = computed(() => store.getters.authUser)
 
+
         function addPost(post) {
 
             axios.post('api/posts', { body: post })
@@ -61,28 +62,29 @@ export default {
                         state.posts.splice(post.PostIndex, 1)
 
                     })
-                .catch(error => console.log(error)) 
+                .catch(error => console.log(error))
 
         }
 
         onMounted( async () => {
 
-            await axios.get('/api/posts').then(
+            await axios.get('/api/timeline').then(
                 response => {
                     state.posts = response.data.data
                     }
 
                 );
+
         })
 
 
         return {
-            state,
-            addPost,
-            deletePost,
-            user,
-            authenticated,
-            
+          state,
+          addPost,
+          deletePost,
+          user,
+          authenticated,
+
         }
     },
 }

@@ -1,24 +1,108 @@
 <template>
-    
+
     <div class="p-12 md:p-12 text-center lg:text-left">
         <!-- Image for mobile view-->
         <!-- <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center" style="background-image: url('https://i.pravatar.cc/3500')"></div> -->
-        <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center">
-            <img :src="`https://i.pravatar.cc/3500?u=${ state.user.email }`" alt="avatar" class="rounded-full">
-        </div>
-        <h1 class="text-3xl font-bold pt-8 lg:pt-0">{{ state.user.name }}</h1>
-        <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
-        
-        <p class="pt-8 text-sm">@ {{ state.user.username }}</p>
-        <p>Count: {{ count }}</p>
-        <button @click="increment()">Increment</button>
-        <button @click="decrement()">Decrement</button>
+        <!-- <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center">
+        </div> -->
+            <img
+              :src="`https://i.pravatar.cc/3500?u=${ state.user.email }`"
+              alt="avatar"
+              class="rounded-full mr-2 w-40">
 
-        <div class="pt-12 pb-8">
-            <button class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
-                Get In Touch
-            </button> 
+
+        <h1 class="text-3xl font-bold pt-8 lg:pt-2">{{ state.user.name }}</h1>
+
+
+        <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
+
+        <div class="flex justify-between py-8">
+
+            <p class="text-sm"><span class="font-bold">Profile Joined</span> {{ state.user.created_at }}</p>
+
+
+            <div>
+              <form v-if="state.user.id != authUser.id" @submit.prevent="follow">
+                  <button v-if="state.isFollowing" type="submit" class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
+                    Unfollow
+                  </button>
+                  <button v-else type="submit" class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
+                    Follow
+                  </button>
+              </form>
+              <button v-if="state.user.id == authUser.id" @click="isModalOpen = true" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">Edit Profile</button>
+
+            </div>
+
         </div>
+
+        <div v-if="state.isFollowing">
+            Is following
+        </div>
+        <div v-else="state.isFollowing">
+            Is not following
+        </div>
+        <Modal v-if="isModalOpen" @close-modal="isModalOpen = false" >
+          <template #title>
+            Edit Profile
+          </template>
+          <template #body>
+            <form action="" @submit.prevent="editProfile" enctype="multipart/form-data">
+              <div class="mb-6">
+
+                <label for="name" class="block mb-2 uppercase font-bold text-xs text-gray-700">Name</label>
+                <input type="text" name="name" v-model="state.name" required class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+
+
+
+              <div class="mb-6">
+
+                <label for="username" class="block mb-2 uppercase font-bold text-xs text-gray-700">Username</label>
+                <input type="text" name="username" v-model="state.username" required class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+
+              <div class="mb-6">
+
+                <label for="avatar" class="block mb-2 uppercase font-bold text-xs text-gray-700">Avatar</label>
+                <input type="file" name="avatar" @change="onFileSelected" class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+
+              <div class="mb-6">
+
+                <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">Email</label>
+                <input type="email" name="email" v-model="state.email" required class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+
+
+
+              <div class="mb-6">
+
+                <label for="password" class="block mb-2 uppercase font-bold text-xs text-gray-700">Password</label>
+                <input type="password" name="password" v-model="state.password" required class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+
+              <div class="mb-6">
+
+                <label for="password-confirmation" class="block mb-2 uppercase font-bold text-xs text-gray-700">Password Confirmation</label>
+                <input type="password" name="password-confirmation" v-model="state.confirmPassword" required class="border border-gray-400 p-2 w-full">
+                <p class="text-red-500 text-xs mt-2">Errors</p>
+
+              </div>
+              <button type="submit" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">submit</button>
+            </form>
+          </template>
+        </Modal>
 
 
     </div>
@@ -29,66 +113,125 @@
     <div class="md:border-t md:border-gray-500">
 
         <Post v-for="post in state.user.posts" :key="post.id" :post="post"></Post>
-        
+
     </div>
 
-    
+
 </template>
 
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onActivated, onMounted, onUpdated, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
 import Post from '../components/Post'
-import { useRoute } from 'vue-router'
+import Modal from '../components/Modal'
+import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+import axios from "axios";
 
 export default {
     components: {
-        Post
+        Post,
+        Modal
     },
     setup(){
-        const store = useStore();
-        const route = useRoute();
-        const state = reactive({
-            user: {},
+      const store = useStore();
+      const route = useRoute();
+
+      const isModalOpen = ref(false)
+
+      const state = reactive({
+          user: {},
+          isFollowing: '',
+          username: '',
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          selectedFile: '',
+      })
+
+
+      const count = computed(() => store.state.count);
+
+      const authUser = computed(() => store.getters.authUser)
+      state.username = authUser.value.username
+      state.name = authUser.value.name
+      state.email = authUser.value.email
+      const followingUsers = computed(() => store.getters.followingUsers)
+
+      const name = computed(() => route.params.username)
+
+      function follow() {
+        store.dispatch('follow', state.user.username)
+        if(state.isFollowing){
+          state.isFollowing = ''
+        }else{
+          state.isFollowing = 1
+        }
+      }
+
+      function onFileSelected(event){
+        state.selectedFile = event.target.files[0]
+        console.log(state.selectedFile)
+      }
+
+      function editProfile()
+      {
+        console.log('foo', state.selectedFile)
+        store.dispatch('editProfile', {
+          authUser: name.value,
+          username: state.username,
+          name: state.name,
+          email: state.email,
+          password: state.password,
+          confirm: state.confirmPassword,
+          avatar: state.selectedFile,
         })
-
-        
-        const count = computed(() => store.state.count);
-
-        const authUser = computed(() => store.getters.authUser)
-
-        const name = computed(() => route.params.username)
-        // const username = 'Marcella'
-
-        function increment() {
-            store.commit("increment");
-        }
-        
-        function decrement() {
-            store.commit("decrement");
-        }
-
-        onMounted( async () => {
-
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.Auth.token
+      }
 
 
-            const user = await axios.get(`api/profiles/${name.value}`)
-            .then(response => {
-                state.user = response.data.data
-            })
+      onMounted( async () => {
 
-            // state.user = user
-            // console.log(user)
-        })
+          await axios.get(`api/profiles/${name.value}`)
+          .then(response => {
+              state.user = response.data.data
+          })
 
-        return {
-            state,
-            count,
-            increment,
-            decrement
-        }
-    }
+          const isUserFollowing = await axios.get(`api/profiles/${name.value}/isFollowing`)
+          .then(response => {
+              state.isFollowing = response.data
+          })
+      })
+
+      onBeforeRouteUpdate(async (to, from) => {
+
+        console.log("To", to.params.username)
+
+        console.log("From", from.params.username)
+
+
+        await axios.get(`api/profiles/${to.params.username}`)
+          .then(response => {
+              state.user = response.data.data
+          })
+
+      })
+      
+
+
+
+      return {
+          state,
+          name,
+          count,
+          authUser,
+          follow,
+          isModalOpen,
+          editProfile,
+          onFileSelected
+      }
+
+    },
+
 }
 </script>

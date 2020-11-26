@@ -20,6 +20,8 @@ class UserResource extends JsonResource
             'username' => $this->username,
             'name' => $this->name,
             'email' => $this->email,
+            'avatar' => $this->avatar,
+            'created_at' => $this->created_at->diffForHumans(),
             "remember_token" => $this->remember_token,
             'posts' => PostResource::collection($this->posts),
         ];

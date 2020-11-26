@@ -7,22 +7,27 @@
             <hr class="my-4">
 
             <footer class="flex justify-between">
-                <img :src="`https://i.pravatar.cc/50?u=${ user.email }`" alt="avatar" class="rounded-full">
+              <div class="flex items-center">
 
-                <div class="flex">
+                <img :src="`https://i.pravatar.cc/200?u=${ user.email }`" alt="avatar" class="rounded-full m-1 w-10">
+                <h1 class="block font-bold text-gray-700 text-xl"> {{ user.name}} </h1>
 
-                    <p class="block">({{ newPostCharacterCount }}/200)</p>
-                    
+              </div>
+
+                <div class="flex items-center">
+
+                    <p class="block pr-2">({{ newPostCharacterCount }}/200)</p>
+
                     <button type="submit" :disabled='newPostCharacterCount > 180' :class="{'opacity-50': newPostCharacterCount > 180 }" class="btn block hover:bg-teal-900">Punch!</button>
 
                 </div>
-                
-                
+
+
             </footer>
 
         </form>
-        
-        
+
+
 
     </div>
 </template>
@@ -50,7 +55,7 @@ export default {
                 state.newPostBody = ''
             }
         }
-        
+
 
         return {
             state,

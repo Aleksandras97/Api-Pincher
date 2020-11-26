@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProfilesController;
@@ -19,20 +20,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth:api')->group(function (){
-    
+
     //User routes
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
     //Loged in User
     Route::get('logedinUser', [ProfilesController::class, 'showLogenInUser']);
-    
+
     //logout
     Route::post('/logout', [AuthController::class, 'logout']);
     //User Posts
     Route::get('users/{user}/posts', [PostController::class, 'userIndex']);
     //Any user profile
-    Route::get('profiles/{user}', [ProfilesController::class, 'show']);
+    Route::get('profiles/{user:username}', [ProfilesController::class, 'show']);
+    Route::patch('profiles/{user:username}', [ProfilesController::class, 'update']);
 
     //Post routes
     Route::get('posts', [PostController::class, 'index']);
@@ -47,6 +49,12 @@ Route::middleware('auth:api')->group(function (){
     Route::get('comments/{comment}', [CommentController::class, 'show']);
     Route::put('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+
+    //Following
+    Route::get('following', [FollowController::class, 'following']);
+    Route::get('timeline', [FollowController::class, 'index']);
+    Route::post('profiles/{user:username}/follow', [FollowController::class, 'store']);
+    Route::get('profiles/{user:username}/isFollowing', [FollowController::class, 'isFollowing']);
 });
 
 //Tag routes
