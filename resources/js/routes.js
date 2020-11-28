@@ -16,7 +16,7 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-        
+
     },
     {
         path: '/profile/:username',
@@ -25,12 +25,13 @@ const routes = [
         meta: {
             requiresAuth: true
         }
-        
+
     },
     {
         path: '/post/:postId',
         name: 'SinglePost',
         component: SinglePost,
+        props: true,
         meta: {
             requiresAuth: true
         }
@@ -65,8 +66,8 @@ const router  = createRouter({
 })
 
 router.beforeEach( async (to, from , next) => {
-    
-    
+
+
     if(to.matched.some(record => record.meta.requiresAuth)) {
 
         if(!store.getters.authenticated) {

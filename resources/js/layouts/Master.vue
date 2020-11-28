@@ -1,34 +1,31 @@
 <template>
-    <div class="grid md:grid-cols-3"> 
+    <div class="grid md:grid-cols-3">
 
         <div>
             <Navbar></Navbar>
         </div>
-        
-        
-        <main class=" px-4 md:col-span-2" style="max-width: 650px">
 
-            <div class="p-3 flex justify-center md:justify-end md:border-r md:border-l  border-gray-500">
-             
-             
-                Hello
-                
-                
-            </div>
+
+        <main class=" px-4 md:col-span-2" style="max-width: 650px">
 
             <div class="md:border md:border-gray-500 shadow-2xl bg-white lg:mx-0">
 
-                
+
 
                 <router-view></router-view>
-                
+
             </div>
-        
+
+
 
 
         </main>
-            
-    </div> 
+
+
+
+
+
+    </div>
 </template>
 
 <script>
@@ -44,11 +41,13 @@ export default {
         const state = reactive({
             user: null,
         });
-        // console.log(store.getters)
-        
-        
+
+        const authenticated = computed(() => store.getters.authenticated)
+
+
         return {
-            state
+            state,
+            authenticated
         }
     }
 }
