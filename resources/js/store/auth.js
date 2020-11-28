@@ -4,6 +4,7 @@ const state = {
     token: null,
     user: null,
     following: [],
+    posts: [],
 }
 //localStorage.getItem('access_token') ||
 
@@ -17,6 +18,9 @@ const getters = {
     followingUsers(state) {
         return state.following
     },
+    timeline(state) {
+      return state.posts
+    }
 }
 
 const mutations = {
@@ -39,6 +43,15 @@ const mutations = {
             state.following.splice(index, 1)
         }
 
+    },
+    SET_TIMELINE(state, data){
+      state.posts = data
+    },
+    SET_ADDPOST(state ,data) {
+      state.posts.unshift(data)
+    },
+    SET_DELETEPOST(state , index) {
+      state.posts.splice(index, 1)
     },
 
 }
@@ -68,11 +81,32 @@ const actions = {
 
             commit('SET_USER', response.data.data)
             dispatch('following')
+            dispatch('timeline')
         } catch (error) {
             console.log('failed', error)
             commit('SET_TOKEN', null)
             commit('SET_USER', null)
         }
+    },
+
+    async timeline({commit}) {
+      await axios.get('api/timeline')
+      .then(response => {
+          commit('SET_TIMELINE', response.data.data)
+      })
+      .catch(err => {
+          console.log(err)
+      })
+    },
+
+    async addPost({commit}, post) {
+      let response = await axios.post('api/posts', { body: post })
+      commit('SET_ADDPOST', response.data.data)
+    },
+
+    async deletePost({commit}, post) {
+      await axios.delete(`api/posts/${post.PostId}`)
+      commit('SET_DELETEPOST', post.PostIndex)
     },
 
     async following ({commit}) {

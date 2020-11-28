@@ -205,18 +205,13 @@ export default {
 
       onBeforeRouteUpdate(async (to, from) => {
 
-        console.log("To", to.params.username)
-
-        console.log("From", from.params.username)
-
-
         await axios.get(`api/profiles/${to.params.username}`)
           .then(response => {
               state.user = response.data.data
           })
 
       })
-      
+
 
 
 

@@ -8,7 +8,7 @@
         <!-- posts -->
         <transition-group name="fade" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
             <div v-for="(post, index) in state.posts" :key="post.id" >
-                <Post @delete-post="deletePost" :post="post" :index="index"></Post>
+                <Post :post="post" :index="index" ></Post>
             </div>
         </transition-group>
 
@@ -36,7 +36,7 @@ export default {
 
 
         const state = reactive({
-            posts: []
+            posts: computed(() => store.getters.timeline)
         });
 
         const authenticated = computed(() => store.getters.authenticated)
@@ -44,36 +44,19 @@ export default {
         const user = computed(() => store.getters.authUser)
 
 
+
         function addPost(post) {
-
-            axios.post('api/posts', { body: post })
-                    .then(response => {
-                        state.posts.unshift(response.data.data)
-                    })
-                    .catch(error => console.log(error))
-
+          store.dispatch('addPost', post)
         }
 
-        async function deletePost(post) {
-            console.log("test", post)
-            await axios.delete(`api/posts/${post.PostId}`)
-                .then(response => {
+        onMounted(() => {
 
-                        state.posts.splice(post.PostIndex, 1)
+            // await axios.get('/api/timeline').then(
+            //     response => {
+            //         state.posts = response.data.data
+            //         }
 
-                    })
-                .catch(error => console.log(error))
-
-        }
-
-        onMounted( async () => {
-
-            await axios.get('/api/timeline').then(
-                response => {
-                    state.posts = response.data.data
-                    }
-
-                );
+            //     );
 
         })
 
@@ -81,10 +64,8 @@ export default {
         return {
           state,
           addPost,
-          deletePost,
           user,
           authenticated,
-
         }
     },
 }
