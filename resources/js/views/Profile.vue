@@ -1,28 +1,25 @@
 <template>
 
     <div class="p-12 md:p-12 text-center lg:text-left">
-        <!-- Image for mobile view-->
-        <!-- <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center" style="background-image: url('https://i.pravatar.cc/3500')"></div> -->
-        <!-- <div class="block rounded-full shadow-xl mx-auto md:mx-0 -mt-8 h-48 w-48 bg-cover bg-center">
-        </div> -->
             <img
-              :src="`https://i.pravatar.cc/3500?u=${ state.user.email }`"
+              :src="`https://i.pravatar.cc/3500?u=${ state.user?.email }`"
               alt="avatar"
-              class="rounded-full mr-2 w-40">
+              class="rounded-full mr-2 w-40"
+              v-if="state.user">
 
 
-        <h1 class="text-3xl font-bold pt-8 lg:pt-2">{{ state.user.name }}</h1>
+        <h1 class="text-3xl font-bold pt-8 lg:pt-2">{{ state.user?.name }}</h1>
 
 
         <div class="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-teal-500 opacity-25"></div>
 
         <div class="flex justify-between py-8">
 
-            <p class="text-sm"><span class="font-bold">Profile Joined</span> {{ state.user.created_at }}</p>
+            <p class="text-sm"><span class="font-bold">Profile Joined</span> {{ state.user?.created_at }}</p>
 
 
             <div>
-              <form v-if="state.user.id != authUser.id" @submit.prevent="follow">
+              <form v-if="state.user?.id != authUser.id" @submit.prevent="follow">
                   <button v-if="state.isFollowing" type="submit" class="bg-teal-700 hover:bg-teal-900 text-white font-bold py-2 px-4 rounded-full">
                     Unfollow
                   </button>
@@ -30,18 +27,12 @@
                     Follow
                   </button>
               </form>
-              <button v-if="state.user.id == authUser.id" @click="isModalOpen = true" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">Edit Profile</button>
+              <button v-if="state.user?.id == authUser.id" @click="isModalOpen = true" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">Edit Profile</button>
 
             </div>
 
         </div>
 
-        <div v-if="state.isFollowing">
-            Is following
-        </div>
-        <div v-else="state.isFollowing">
-            Is not following
-        </div>
         <Modal v-if="isModalOpen" @close-modal="isModalOpen = false" >
           <template #title>
             Edit Profile
@@ -112,7 +103,7 @@
     </router-link> -->
     <div class="md:border-t md:border-gray-500">
 
-        <Post v-for="post in state.user.posts" :key="post.id" :post="post"></Post>
+        <Post v-for="post in state.user?.posts" :key="post.id" :post="post"></Post>
 
     </div>
 
@@ -140,7 +131,7 @@ export default {
       const isModalOpen = ref(false)
 
       const state = reactive({
-          user: {},
+          user: null,
           isFollowing: '',
           username: '',
           name: '',

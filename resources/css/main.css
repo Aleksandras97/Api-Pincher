@@ -11,6 +11,10 @@
     @apply bg-teal-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer tracking-wider;
 }
 
+.btn-ex{
+  @apply bg-blue-700 text-white text-xs font-bold py-2 px-2 rounded cursor-pointer tracking-wider;
+}
+
 .btn-sm{
     @apply text-blue-400 rounded-full bg-white p-1 border border-red-100;
 }
@@ -28,7 +32,11 @@
    @apply outline-none;
 }
 
-/* 
+.form-error {
+  @apply text-sm mb-6 text-red-700 rounded;
+}
+
+/*
 .active{
     @apply text-green-700 text-2xl;
 }

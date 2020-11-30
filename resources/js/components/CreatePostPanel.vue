@@ -16,9 +16,9 @@
 
                 <div class="flex items-center">
 
-                    <p class="block pr-2">({{ newPostCharacterCount }}/200)</p>
+                    <p class="block pr-2">({{ newPostCharacterCount }}/180)</p>
 
-                    <button type="submit" :disabled='newPostCharacterCount > 180' :class="{'opacity-50': newPostCharacterCount > 180 }" class="btn block hover:bg-teal-900">Punch!</button>
+                    <button type="submit" :disabled='newPostCharacterCount > 180' :class="{'opacity-50': newPostCharacterCount > 180 }" class="btn block hover:bg-teal-900">Post!</button>
 
                 </div>
 

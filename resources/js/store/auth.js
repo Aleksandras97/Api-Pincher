@@ -164,6 +164,8 @@ const actions = {
 
             commit('SET_TOKEN', null)
             commit('SET_USER', null)
+            commit('SET_FOLLOWING', null)
+            commit('SET_TIMELINE', null)
         })
     }
 

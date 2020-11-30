@@ -6,6 +6,7 @@ import Login from './views/Login.vue'
 import Register from './views/Register.vue'
 import Logout from './views/Logout.vue'
 import store from './store';
+import Explore from './views/Explore.vue'
 
 
 const routes = [
@@ -36,6 +37,14 @@ const routes = [
             requiresAuth: true
         }
     },
+    {
+      path: '/explore',
+      name: 'Explore',
+      component: Explore,
+      meta: {
+          requiresAuth: true
+      }
+  },
     {
         path: '/login',
         name: 'Login',
