@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FollowController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ExploreController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProfilesController;
 use App\Http\Controllers\Api\TagController;
@@ -55,10 +56,13 @@ Route::middleware('auth:api')->group(function (){
     Route::get('timeline', [FollowController::class, 'index']);
     Route::post('profiles/{user:username}/follow', [FollowController::class, 'store']);
     Route::get('profiles/{user:username}/isFollowing', [FollowController::class, 'isFollowing']);
+
+    Route::get('explore', [ExploreController::class, 'index']);
+
+    //Tag routes
+    Route::apiResource('tags', TagController::class);
 });
 
-//Tag routes
-Route::apiResource('tags', TagController::class);
 
 //Login and Register
 Route::post('/register', [AuthController::class, 'register']);

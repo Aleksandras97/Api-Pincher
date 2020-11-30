@@ -28,28 +28,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9b40474a-d058-4d10-848c-c88d19a8ba65" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Models/Followable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/Feature/FollowersTests.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/action_provision" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/action_provision" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/action_set_name" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/action_set_name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/id" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/id" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/index_uuid" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/index_uuid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/private_key" beforeDir="false" afterPath="$PROJECT_DIR$/.vagrant/machines/pincher/virtualbox/private_key" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProfilesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProfilesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/PostResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/UserResource.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/CommentModal.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CommentModal.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Post.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Timeline.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Timeline.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/layouts/Master.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/layouts/Master.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/Profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Feature/ExampleTest.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +210,7 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -245,12 +227,12 @@
       <command value="php artisan make:model Role" />
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.127.0.0.1:8000">
+  <component name="RunManager" selected="PHPUnit.phpunit.xml">
     <configuration name="127.0.0.1:8000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://127.0.0.1:8000">
       <method v="2" />
     </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
+      <TestRunner directory="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
     <recent_temporary>
@@ -329,6 +311,7 @@
       <workItem from="1605281661384" duration="6012000" />
       <workItem from="1605975948557" duration="17064000" />
       <workItem from="1606165527534" duration="389000" />
+      <workItem from="1606574377033" duration="3605000" />
     </task>
     <servers />
   </component>
@@ -370,6 +353,10 @@
       <screen x="1920" y="0" width="1280" height="680" />
     </state>
     <state x="1920" y="0" key="#Live_Templates/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603275022996" />
+    <state x="674" y="162" width="815" height="715" key="#PHP" timestamp="1606575947034">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="674" y="162" width="815" height="715" key="#PHP/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606575947034" />
     <state x="725" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1601030738360">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -378,6 +365,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="235" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1605285665291" />
+    <state x="746" y="135" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606575226817">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="746" y="135" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606575226817" />
     <state x="557" y="145" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605286467109">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -403,10 +394,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="DiffContextDialog/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1601121251407" />
-    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1603529587118">
+    <state x="740" y="260" key="FileChooserDialogImpl" timestamp="1606575885858">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603529587118" />
+    <state x="740" y="260" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606575885858" />
     <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1603732845847">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -471,10 +462,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="254" height="198" key="RunAnythingAction_Filter_Popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1603022347452" />
-    <state x="2029" y="0" width="1230" height="680" key="SettingsEditor" timestamp="1605285648909">
+    <state x="2029" y="0" width="1230" height="680" key="SettingsEditor" timestamp="1606574512137">
       <screen x="1920" y="0" width="1280" height="680" />
     </state>
-    <state x="2029" y="0" width="998" height="680" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1605285648909" />
+    <state x="2029" y="0" width="998" height="680" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606574512137" />
     <state x="1946" y="0" width="1230" height="680" key="SettingsEditor/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603275190049" />
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1603214272366">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -498,11 +489,11 @@
     </state>
     <state x="616" y="240" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1605282375786" />
     <state x="2331" y="157" width="672" height="443" key="run.anything.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603274613760" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606165855070">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1606575180349">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="415" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1280.680@0.0.1280.680" timestamp="1601571305073" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606165855070" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@0.0.1920.1040" timestamp="1606575180349" />
     <state x="2335" y="147" width="672" height="444" key="search.everywhere.popup/0.0.1920.1040/1920.0.1280.680@1920.0.1280.680" timestamp="1603625494588" />
   </component>
 </project>

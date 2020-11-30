@@ -1,6 +1,35 @@
 <template>
 
-    <Post v-if="state.post" :post="state.post" :index="postIndex" ></Post>
+    <!-- <Post v-if="state.post" :post="state.post" :index="postIndex" ></Post> -->
+    <div class="p-4 border-b border-b-gray-300">
+        <div class="flex justify-between ">
+
+          <div class="flex justify-start">
+            <div class="mr-4 flex-shrink-0">
+                <img :src="`https://i.pravatar.cc/50?u=${ state.post.user?.email }`" alt="avatar" class="rounded">
+            </div>
+
+            <div>
+              <div class="flex items-center">
+                <h5 class="font-bold">{{ state.post.user?.name }} </h5>
+                <h5 class="text-sm ml-2">{{state.post.created_at}}</h5>
+              </div>
+
+
+
+              <h5 class="font-semibold text-xs mb-4">@{{ state.post.user?.username }}</h5>
+
+              <p class="text-sm">{{ state.post.body }} </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+    </div>
 
     <CommentModal @add-comment="addComment" />
 
@@ -57,6 +86,7 @@ export default {
 
             state.post = await axios.get(`/api/posts/${postId.value}`)
             .then(response => {
+                console.log(response.data.data)
                 return response.data.data
             })
         })

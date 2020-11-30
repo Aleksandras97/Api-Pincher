@@ -7,10 +7,15 @@
 
         <!-- posts -->
         <transition-group name="fade" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
-            <div v-for="(post, index) in state.posts" :key="post.id" >
+
+            <router-link v-if="state.posts" v-for="(post, index) in state.posts" :key="post.id" :to="{ name: 'SinglePost', params: { postId: post.id } }">
                 <Post :post="post" :index="index" ></Post>
-            </div>
+            </router-link>
+
         </transition-group>
+        <div v-if="state.posts < 1">
+          <h1 class="text-lg px-4 py-2 font-bold text-center">No posts yet. Make sure to post something!</h1>
+        </div>
 
 
 
@@ -50,14 +55,7 @@ export default {
         }
 
         onMounted(() => {
-
-            // await axios.get('/api/timeline').then(
-            //     response => {
-            //         state.posts = response.data.data
-            //         }
-
-            //     );
-
+            state.posts = computed(() => store.getters.timeline)
         })
 
 

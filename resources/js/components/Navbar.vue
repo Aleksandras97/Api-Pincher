@@ -36,13 +36,19 @@
 
                         <li class="p-2">
 
+                            <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Explore'}" exact>Explore</router-link>
+                            <!-- {{ user.username }} -->
+                        </li>
+
+                        <li class="p-2">
+
                                 <router-link class="bg-white hover:text-green-800 font-semibold md:block" :to="{ name: 'Logout'}" exact>Logout</router-link>
 
                         </li>
 
-                        <div class="bg-gray-200 py-4 px-6 mx-auto rounded">
+                        <div class="bg-gray-200 py-4 px-6 mx-auto rounded hidden md:block">
                             <h1 class="font-bold text-lg mb-4">Following</h1>
-                            <div class="flex md:block">
+                            <div v-if="followingUsers" class="flex md:block">
                                 <router-link v-for="follow in followingUsers" :key="follow.id" :to="{ name: 'Profile', params: { username: follow.username } }" exact class="mb-4">
 
                                     <div class=" flex mb-2 md:items-center text-sm">
@@ -61,6 +67,9 @@
                                     </div>
 
                                 </router-link>
+                            </div>
+                            <div v-if="followingUsers < 1">
+                              <h1 class="font-semibold text-sm">Not following anyone.</h1>
                             </div>
 
                         </div>

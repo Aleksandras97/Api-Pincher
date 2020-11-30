@@ -4,9 +4,9 @@
         <div class="flex justify-between ">
 
           <div class="flex justify-start">
-            <div class="mr-4 flex-shrink-0">
+            <router-link class="mr-4 flex-shrink-0" :to="{ name: 'Profile', params: { username: post.user?.username } }">
                 <img :src="`https://i.pravatar.cc/50?u=${ post.user?.email }`" alt="avatar" class="rounded">
-            </div>
+            </router-link>
 
             <div>
               <div class="flex items-center">
@@ -20,9 +20,7 @@
                     <h5 class="font-semibold text-xs mb-4">@{{ post.user?.username }}</h5>
                 </router-link>
 
-                <router-link  :to="{ name: 'SinglePost', params: { postId: post.id, index: index } }">
-                    <p class="text-sm">{{ post.body }} </p>
-                </router-link>
+                <p class="text-sm">{{ post.body }} </p>
 
             </div>
 
@@ -65,7 +63,7 @@ import { useStore } from 'vuex'
             const store = useStore();
 
             const state = reactive({
-
+              postIndex: props.index
             });
 
             function deletePost(){
