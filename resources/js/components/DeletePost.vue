@@ -28,21 +28,44 @@
                 <div class="border-t border-gray-100"></div>
                 <div class="py-1">
                     <a href="#"
-                    @click="deletePost"
+                    @click="isModalOpen = true"
                     class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                     role="menuitem">Delete</a>
                 </div>
             </div>
         </div>
     </transition>
-</div>
+
+
+  </div>
+
+  <Modal v-if="isModalOpen" @close-modal="isModalOpen = false" >
+    <template #title>
+      Are you sure you want to delete?
+    </template>
+    <template #body>
+        <div class="flex justify-center p-2">
+          <button @click="isModalOpen = false, state.isOpen = false" class="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full mr-2">Cancel</button>
+          <button @click="deletePost" class="bg-red-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">Delete</button>
+        </div>
+    </template>
+  </Modal>
 
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
+import Modal from './Modal'
+
 export default {
+  components:{
+    Modal,
+  },
+  emits: ['delete-post'],
   setup(props,{emit}) {
+
+    const isModalOpen = ref(false)
+
     const state = reactive({
       isOpen: false,
     })
@@ -55,6 +78,7 @@ export default {
     return {
       state,
       deletePost,
+      isModalOpen
     }
   }
 }

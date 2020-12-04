@@ -69,9 +69,9 @@ export default {
         async function addComment(commentBody) {
             await axios.post('api/comments', { body: commentBody , post_id: state.post.id })
                         .then(response => {
-                            console.log(response.data)
-                            state.post.comments.push(response.data.data)
-                            console.log(state.post.comments)
+
+                          state.post.comments.push(response.data.data)
+
                         })
                         .catch(error => console.log(error))
         }
@@ -83,12 +83,11 @@ export default {
 
         onMounted( async () => {
 
+          state.post = await axios.get(`/api/posts/${postId.value}`)
+          .then(response => {
+              return response.data.data
+          })
 
-            state.post = await axios.get(`/api/posts/${postId.value}`)
-            .then(response => {
-                console.log(response.data.data)
-                return response.data.data
-            })
         })
 
         return {

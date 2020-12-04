@@ -119,7 +119,6 @@ import { useStore } from 'vuex';
 
             function toggle() {
                 state.isOpen = !state.isOpen
-                console.log(state.isOpen)
             }
 
             onMounted( async () => {

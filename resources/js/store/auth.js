@@ -121,14 +121,11 @@ const actions = {
 
     async editProfile ({commit}, user) {
       const formData = new FormData
-      formData.append('username', user.username)
       formData.append('name', user.name)
       formData.append('email', user.email)
       formData.append('password', user.password)
       formData.append('password_confirmation', user.confirm)
-      formData.append('avatar', user.avatar)
       formData.append('_method', 'patch')
-
       let response = await axios.post(`api/profiles/${user.authUser}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
