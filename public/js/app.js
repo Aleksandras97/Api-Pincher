@@ -30382,10 +30382,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modal */ "./resources/js/components/Modal.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Modal: _Modal__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  emits: ['delete-post'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
+    var isModalOpen = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       isOpen: false
     });
@@ -30397,7 +30404,8 @@ __webpack_require__.r(__webpack_exports__);
 
     return {
       state: state,
-      deletePost: deletePost
+      deletePost: deletePost,
+      isModalOpen: isModalOpen
     };
   }
 });
@@ -30420,6 +30428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  emits: ['close-modal'],
   setup: function setup(_, _ref) {
     var emit = _ref.emit;
 
@@ -30481,7 +30490,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     function toggle() {
       state.isOpen = !state.isOpen;
-      console.log(state.isOpen);
     }
 
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
@@ -30559,8 +30567,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {// console.log("post props" , post)
-    });
     return {
       state: state,
       deletePost: deletePost
@@ -30676,17 +30682,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-browser.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-browser.js");
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Navbar */ "./resources/js/components/Navbar.vue");
+/* harmony import */ var _components_Footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Footer */ "./resources/js/components/Footer.vue");
+
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Navbar: _components_Navbar__WEBPACK_IMPORTED_MODULE_1__.default
+    Navbar: _components_Navbar__WEBPACK_IMPORTED_MODULE_1__.default,
+    Footer: _components_Footer__WEBPACK_IMPORTED_MODULE_2__.default
   },
   setup: function setup() {
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_2__.useStore)();
+    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({
       user: null
     });
@@ -30806,7 +30815,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Timeline__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Timeline */ "./resources/js/components/Timeline.vue");
 /* harmony import */ var _components_Navbar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Navbar.vue */ "./resources/js/components/Navbar.vue");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-browser.js");
 
 
 
@@ -30815,25 +30823,6 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Timeline: _components_Timeline__WEBPACK_IMPORTED_MODULE_0__.default,
     Navbar: _components_Navbar_vue__WEBPACK_IMPORTED_MODULE_1__.default
-  },
-  setup: function setup() {
-    var store = (0,vuex__WEBPACK_IMPORTED_MODULE_3__.useStore)();
-    var state = (0,vue__WEBPACK_IMPORTED_MODULE_2__.reactive)({
-      user: null
-    }); // onMounted( async () => {
-    //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + store.state.token
-    //     const user = await axios.get(`/api/logedinUser`)
-    //         .then(response => {
-    //             return response.data.data
-    //         })
-    //     store.dispatch('retrieveLogedinUser', user);
-    //     state.user = user
-    //     console.log(state.user.username)
-    // })
-
-    return {
-      state: state
-    };
   }
 });
 
@@ -30984,11 +30973,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     var state = (0,vue__WEBPACK_IMPORTED_MODULE_1__.reactive)({
       user: null,
       isFollowing: '',
-      username: '',
       name: '',
       email: '',
-      password: '',
-      confirmPassword: '',
+      password: null,
+      confirmPassword: null,
       selectedFile: ''
     });
     var count = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
@@ -31019,19 +31007,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     function onFileSelected(event) {
       state.selectedFile = event.target.files[0];
-      console.log(state.selectedFile);
     }
 
     function editProfile() {
-      console.log('foo', state.selectedFile);
+      isModalOpen.value = false;
       store.dispatch('editProfile', {
         authUser: name.value,
-        username: state.username,
         name: state.name,
         email: state.email,
         password: state.password,
-        confirm: state.confirmPassword,
-        avatar: state.selectedFile
+        confirm: state.confirmPassword
       });
     }
 
@@ -31265,9 +31250,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   body: commentBody,
                   post_id: state.post.id
                 }).then(function (response) {
-                  console.log(response.data);
                   state.post.comments.push(response.data.data);
-                  console.log(state.post.comments);
                 })["catch"](function (error) {
                   return console.log(error);
                 });
@@ -31315,7 +31298,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.next = 2;
               return axios.get("/api/posts/".concat(postId.value)).then(function (response) {
-                console.log(response.data.data);
                 return response.data.data;
               });
 
@@ -31827,25 +31809,23 @@ var actions = {
             case 0:
               commit = _ref8.commit;
               formData = new FormData();
-              formData.append('username', user.username);
               formData.append('name', user.name);
               formData.append('email', user.email);
               formData.append('password', user.password);
               formData.append('password_confirmation', user.confirm);
-              formData.append('avatar', user.avatar);
               formData.append('_method', 'patch');
-              _context8.next = 11;
+              _context8.next = 9;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("api/profiles/".concat(user.authUser), formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data'
                 }
               });
 
-            case 11:
+            case 9:
               response = _context8.sent;
               commit('SET_USER', response.data.data);
 
-            case 13:
+            case 11:
             case "end":
               return _context8.stop();
           }
@@ -31908,18 +31888,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var state = {
-  count: 0
-};
+var state = {};
 var getters = {};
-var mutations = {
-  increment: function increment(state) {
-    state.count++;
-  },
-  decrement: function decrement(state) {
-    state.count--;
-  }
-};
+var mutations = {};
 var actions = {};
 var modules = {
   Auth: _auth__WEBPACK_IMPORTED_MODULE_1__.AuthModule
@@ -56247,18 +56218,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup"} */ "./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\"}");
+/* harmony import */ var _DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup_isModalOpen_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup","isModalOpen":"setup"} */ "./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\",\"isModalOpen\":\"setup\"}");
 /* harmony import */ var _DeletePost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DeletePost.vue?vue&type=script&lang=js */ "./resources/js/components/DeletePost.vue?vue&type=script&lang=js");
 
 
 
-_DeletePost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup___WEBPACK_IMPORTED_MODULE_0__.render
+_DeletePost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup_isModalOpen_setup___WEBPACK_IMPORTED_MODULE_0__.render
 /* hot reload */
 if (false) {}
 
 _DeletePost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/components/DeletePost.vue"
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_DeletePost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/***/ }),
+
+/***/ "./resources/js/components/Footer.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Footer.vue ***!
+  \********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
+/* harmony export */ });
+/* harmony import */ var _Footer_vue_vue_type_template_id_61a7c374__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Footer.vue?vue&type=template&id=61a7c374 */ "./resources/js/components/Footer.vue?vue&type=template&id=61a7c374");
+
+const script = {}
+script.render = _Footer_vue_vue_type_template_id_61a7c374__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+script.__file = "resources/js/components/Footer.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (script);
 
 /***/ }),
 
@@ -56499,12 +56498,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
-/* harmony import */ var _Home_vue_vue_type_template_id_63cd6604_bindings_state_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Home.vue?vue&type=template&id=63cd6604&bindings={"state":"setup"} */ "./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={\"state\":\"setup\"}");
+/* harmony import */ var _Home_vue_vue_type_template_id_63cd6604_bindings___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Home.vue?vue&type=template&id=63cd6604&bindings={} */ "./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={}");
 /* harmony import */ var _Home_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Home.vue?vue&type=script&lang=js */ "./resources/js/views/Home.vue?vue&type=script&lang=js");
 
 
 
-_Home_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _Home_vue_vue_type_template_id_63cd6604_bindings_state_setup___WEBPACK_IMPORTED_MODULE_0__.render
+_Home_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _Home_vue_vue_type_template_id_63cd6604_bindings___WEBPACK_IMPORTED_MODULE_0__.render
 /* hot reload */
 if (false) {}
 
@@ -58364,12 +58363,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\"}":
-/*!******************************************************************************************************************************!*\
-  !*** ./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup"} ***!
-  \******************************************************************************************************************************/
+/***/ "./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\",\"isModalOpen\":\"setup\"}":
+/*!****************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup","isModalOpen":"setup"} ***!
+  \****************************************************************************************************************************************************/
 /*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup"} .render */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup","isModalOpen":"setup"} .render */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -58377,9 +58376,29 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup___WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup_isModalOpen_setup___WEBPACK_IMPORTED_MODULE_0__.render
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup"} */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\"}");
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_DeletePost_vue_vue_type_template_id_3e630416_bindings_state_setup_deletePost_setup_isModalOpen_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup","isModalOpen":"setup"} */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\",\"isModalOpen\":\"setup\"}");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/Footer.vue?vue&type=template&id=61a7c374":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/Footer.vue?vue&type=template&id=61a7c374 ***!
+  \**************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374 .render */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Footer_vue_vue_type_template_id_61a7c374__WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Footer_vue_vue_type_template_id_61a7c374__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Footer.vue?vue&type=template&id=61a7c374 */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374");
 
 
 /***/ }),
@@ -58524,12 +58543,12 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={\"state\":\"setup\"}":
-/*!**********************************************************************************************!*\
-  !*** ./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={"state":"setup"} ***!
-  \**********************************************************************************************/
+/***/ "./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={}":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={} ***!
+  \*******************************************************************************/
 /*! namespace exports */
-/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={"state":"setup"} .render */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] -> ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={} .render */
 /*! other exports [not provided] [no usage info] */
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.d, __webpack_require__.r, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
@@ -58537,9 +58556,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_63cd6604_bindings_state_setup___WEBPACK_IMPORTED_MODULE_0__.render
+/* harmony export */   "render": () => /* reexport safe */ _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_63cd6604_bindings___WEBPACK_IMPORTED_MODULE_0__.render
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_63cd6604_bindings_state_setup___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Home.vue?vue&type=template&id=63cd6604&bindings={"state":"setup"} */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={\"state\":\"setup\"}");
+/* harmony import */ var _node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Home_vue_vue_type_template_id_63cd6604_bindings___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Home.vue?vue&type=template&id=63cd6604&bindings={} */ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={}");
 
 
 /***/ }),
@@ -59789,10 +59808,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\"}":
-/*!***************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup"} ***!
-  \***************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={\"state\":\"setup\",\"deletePost\":\"setup\",\"isModalOpen\":\"setup\"}":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/DeletePost.vue?vue&type=template&id=3e630416&bindings={"state":"setup","deletePost":"setup","isModalOpen":"setup"} ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export render [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -59826,47 +59845,105 @@ const _hoisted_3 = { class: "origin-top-right absolute mt-2 w-56 rounded-md shad
 const _hoisted_4 = { class: "rounded-md bg-white shadow-xs" }
 const _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", { class: "border-t border-gray-100" }, null, -1 /* HOISTED */)
 const _hoisted_6 = { class: "py-1" }
+const _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Are you sure you want to delete? ")
+const _hoisted_8 = { class: "flex justify-center p-2" }
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [
+  const _component_Modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Modal")
+
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_1, [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button @click=\"state.isOpen = !state.isOpen\" class=\"btn-sm text-xl hover:bg-gray-300 focus:outline-none active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150\">\n                ...\n            </button> "),
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
-          onClick: _cache[1] || (_cache[1] = $event => ($setup.state.isOpen = !$setup.state.isOpen)),
-          class: "btn-sm"
-        }, [
-          _hoisted_2
-        ])
-      ])
-    ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
-      "enter-active-class": "transition ease-out duration-100 transform",
-      "enter-class": "opacity-0 scale-95",
-      "enter-to-class": "opacity-100 scale-100",
-      "leave-active-class": "transition ease-in duration-75 transform",
-      "leave-class": "opacity-100 scale-100",
-      "leave-to-class": "opacity-0 scale-95"
-    }, {
-      default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [
-            _hoisted_5,
-            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [
-              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
-                href: "#",
-                onClick: _cache[2] || (_cache[2] = (...args) => ($setup.deletePost(...args))),
-                class: "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900",
-                role: "menuitem"
-              }, "Delete")
-            ])
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_1, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button @click=\"state.isOpen = !state.isOpen\" class=\"btn-sm text-xl hover:bg-gray-300 focus:outline-none active:bg-gray-50 active:text-gray-800 transition ease-in-out duration-150\">\n                ...\n            </button> "),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+            onClick: _cache[1] || (_cache[1] = $event => ($setup.state.isOpen = !$setup.state.isOpen)),
+            class: "btn-sm"
+          }, [
+            _hoisted_2
           ])
-        ], 512 /* NEED_PATCH */), [
-          [vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.state.isOpen]
         ])
       ]),
-      _: 1
-    })
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(vue__WEBPACK_IMPORTED_MODULE_0__.Transition, {
+        "enter-active-class": "transition ease-out duration-100 transform",
+        "enter-class": "opacity-0 scale-95",
+        "enter-to-class": "opacity-100 scale-100",
+        "leave-active-class": "transition ease-in duration-75 transform",
+        "leave-class": "opacity-100 scale-100",
+        "leave-to-class": "opacity-0 scale-95"
+      }, {
+        default: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [
+              _hoisted_5,
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("a", {
+                  href: "#",
+                  onClick: _cache[2] || (_cache[2] = $event => ($setup.isModalOpen = true)),
+                  class: "block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900",
+                  role: "menuitem"
+                }, "Delete")
+              ])
+            ])
+          ], 512 /* NEED_PATCH */), [
+            [vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.state.isOpen]
+          ])
+        ]),
+        _: 1
+      })
+    ]),
+    ($setup.isModalOpen)
+      ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Modal, {
+          key: 0,
+          onCloseModal: _cache[5] || (_cache[5] = $event => ($setup.isModalOpen = false))
+        }, {
+          title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+            _hoisted_7
+          ]),
+          body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+                onClick: _cache[3] || (_cache[3] = $event => ($setup.isModalOpen = false, $setup.state.isOpen = false)),
+                class: "bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full mr-2"
+              }, "Cancel"),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+                onClick: _cache[4] || (_cache[4] = (...args) => ($setup.deletePost(...args))),
+                class: "bg-red-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full"
+              }, "Delete")
+            ])
+          ]),
+          _: 1
+        }))
+      : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
+  ], 64 /* STABLE_FRAGMENT */))
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374 ***!
+  \***********************************************************************************************************************************************************************************************************/
+/*! namespace exports */
+/*! export render [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => /* binding */ render
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+const _hoisted_1 = { class: "flex justify-center mt-24 p-4 bg-blue-100" }
+const _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", { class: "text-blue-500 my-2 ml-5" }, "Aleksandr Naruševič Copyright ©", -1 /* HOISTED */)
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
+    _hoisted_2
   ]))
 }
 
@@ -59892,10 +59969,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const _hoisted_1 = { class: "absolute inset-0" }
 const _hoisted_2 = { class: "flex h-full" }
-const _hoisted_3 = { class: "z-30 m-auto bg-white p-2 rounded shadow w-1/3" }
+const _hoisted_3 = { class: "z-30 m-auto bg-white p-2 rounded shadow w-1/5" }
 const _hoisted_4 = { class: "p-2 border" }
 const _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Edit Profile")
-const _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Priovide data here")
+const _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Provide data here")
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
@@ -60195,7 +60272,14 @@ const render = /*#__PURE__*/_withId(function render(_ctx, _cache, $props, $setup
             ]),
             _: 1
           }, 8 /* PROPS */, ["to"]),
-          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.post.body), 1 /* TEXT */)
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+            to: { name: 'SinglePost', params: { postId: $props.post.id } }
+          }, {
+            default: _withId(() => [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.post.body), 1 /* TEXT */)
+            ]),
+            _: 1
+          }, 8 /* PROPS */, ["to"])
         ])
       ]),
       (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeletePost, { onDeletePost: $setup.deletePost }, null, 8 /* PROPS */, ["onDeletePost"])
@@ -60266,7 +60350,6 @@ const _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)
 const render = /*#__PURE__*/_withId(function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_CreatePostPanel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("CreatePostPanel")
   const _component_Post = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Post")
-  const _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link")
 
   return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CreatePostPanel, { onAddPost: $setup.addPost }, null, 8 /* PROPS */, ["onAddPost"]),
@@ -60280,18 +60363,14 @@ const render = /*#__PURE__*/_withId(function render(_ctx, _cache, $props, $setup
       default: _withId(() => [
         ($setup.state.posts)
           ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, { key: 0 }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.state.posts, (post, index) => {
-              return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
-                key: post.id,
-                to: { name: 'SinglePost', params: { postId: post.id } }
-              }, {
-                default: _withId(() => [
-                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Post, {
-                    post: post,
-                    index: index
-                  }, null, 8 /* PROPS */, ["post", "index"])
-                ]),
-                _: 2
-              }, 1032 /* PROPS, DYNAMIC_SLOTS */, ["to"]))
+              return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", {
+                key: post.id
+              }, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Post, {
+                  post: post,
+                  index: index
+                }, null, 8 /* PROPS */, ["post", "index"])
+              ]))
             }), 128 /* KEYED_FRAGMENT */))
           : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
       ]),
@@ -60325,7 +60404,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-const _hoisted_1 = { class: "grid md:grid-cols-3" }
+const _hoisted_1 = { class: "grid md:grid-cols-3 min-h-screen" }
 const _hoisted_2 = {
   class: " px-4 md:col-span-2",
   style: {"max-width":"650px"}
@@ -60335,17 +60414,21 @@ const _hoisted_3 = { class: "md:border md:border-gray-500 shadow-2xl bg-white lg
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar")
   const _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view")
+  const _component_Footer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Footer")
 
-  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_1, [
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar)
-    ]),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("main", _hoisted_2, [
-      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
-        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)
+  return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar)
+      ]),
+      (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("main", _hoisted_2, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_3, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)
+        ])
       ])
-    ])
-  ]))
+    ]),
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)
+  ], 64 /* STABLE_FRAGMENT */))
 }
 
 /***/ }),
@@ -60424,10 +60507,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={\"state\":\"setup\"}":
-/*!*******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={"state":"setup"} ***!
-  \*******************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={}":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/views/Home.vue?vue&type=template&id=63cd6604&bindings={} ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! namespace exports */
 /*! export render [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
@@ -60643,39 +60726,28 @@ const _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode
 const _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
 const _hoisted_13 = { class: "mb-6" }
 const _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  for: "username",
-  class: "block mb-2 uppercase font-bold text-xs text-gray-700"
-}, "Username", -1 /* HOISTED */)
-const _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
-const _hoisted_16 = { class: "mb-6" }
-const _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
-  for: "avatar",
-  class: "block mb-2 uppercase font-bold text-xs text-gray-700"
-}, "Avatar", -1 /* HOISTED */)
-const _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
-const _hoisted_19 = { class: "mb-6" }
-const _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   for: "email",
   class: "block mb-2 uppercase font-bold text-xs text-gray-700"
 }, "Email", -1 /* HOISTED */)
-const _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
-const _hoisted_22 = { class: "mb-6" }
-const _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+const _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
+const _hoisted_16 = { class: "mb-6" }
+const _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   for: "password",
   class: "block mb-2 uppercase font-bold text-xs text-gray-700"
 }, "Password", -1 /* HOISTED */)
-const _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
-const _hoisted_25 = { class: "mb-6" }
-const _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
+const _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
+const _hoisted_19 = { class: "mb-6" }
+const _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   for: "password-confirmation",
   class: "block mb-2 uppercase font-bold text-xs text-gray-700"
 }, "Password Confirmation", -1 /* HOISTED */)
-const _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
-const _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+const _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", { class: "text-red-500 text-xs mt-2" }, "Errors", -1 /* HOISTED */)
+const _hoisted_22 = { class: "flex justify-end" }
+const _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   type: "submit",
   class: "bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full"
 }, "submit", -1 /* HOISTED */)
-const _hoisted_29 = { class: "md:border-t md:border-gray-500" }
+const _hoisted_24 = { class: "md:border-t md:border-gray-500" }
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Modal")
@@ -60721,7 +60793,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       ($setup.isModalOpen)
         ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Modal, {
             key: 1,
-            onCloseModal: _cache[10] || (_cache[10] = $event => ($setup.isModalOpen = false))
+            onCloseModal: _cache[9] || (_cache[9] = $event => ($setup.isModalOpen = false))
           }, {
             title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
               _hoisted_9
@@ -60729,7 +60801,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(() => [
               (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", {
                 action: "",
-                onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($setup.editProfile(...args)), ["prevent"])),
+                onSubmit: _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)((...args) => ($setup.editProfile(...args)), ["prevent"])),
                 enctype: "multipart/form-data"
               }, [
                 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_10, [
@@ -60748,66 +60820,49 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_13, [
                   _hoisted_14,
                   (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-                    type: "text",
-                    name: "username",
-                    "onUpdate:modelValue": _cache[4] || (_cache[4] = $event => ($setup.state.username = $event)),
-                    required: "",
-                    class: "border border-gray-400 p-2 w-full"
-                  }, null, 512 /* NEED_PATCH */), [
-                    [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.state.username]
-                  ]),
-                  _hoisted_15
-                ]),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [
-                  _hoisted_17,
-                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
-                    type: "file",
-                    name: "avatar",
-                    onChange: _cache[5] || (_cache[5] = (...args) => ($setup.onFileSelected(...args))),
-                    class: "border border-gray-400 p-2 w-full"
-                  }, null, 32 /* HYDRATE_EVENTS */),
-                  _hoisted_18
-                ]),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [
-                  _hoisted_20,
-                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
                     type: "email",
                     name: "email",
-                    "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ($setup.state.email = $event)),
+                    "onUpdate:modelValue": _cache[4] || (_cache[4] = $event => ($setup.state.email = $event)),
                     required: "",
                     class: "border border-gray-400 p-2 w-full"
                   }, null, 512 /* NEED_PATCH */), [
                     [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.state.email]
                   ]),
-                  _hoisted_21
+                  _hoisted_15
                 ]),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [
-                  _hoisted_23,
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_16, [
+                  _hoisted_17,
                   (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
                     type: "password",
                     name: "password",
-                    "onUpdate:modelValue": _cache[7] || (_cache[7] = $event => ($setup.state.password = $event)),
+                    "onUpdate:modelValue": _cache[5] || (_cache[5] = $event => ($setup.state.password = $event)),
                     required: "",
                     class: "border border-gray-400 p-2 w-full"
                   }, null, 512 /* NEED_PATCH */), [
                     [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.state.password]
                   ]),
-                  _hoisted_24
+                  _hoisted_18
                 ]),
-                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_25, [
-                  _hoisted_26,
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [
+                  _hoisted_20,
                   (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
                     type: "password",
                     name: "password-confirmation",
-                    "onUpdate:modelValue": _cache[8] || (_cache[8] = $event => ($setup.state.confirmPassword = $event)),
+                    "onUpdate:modelValue": _cache[6] || (_cache[6] = $event => ($setup.state.confirmPassword = $event)),
                     required: "",
                     class: "border border-gray-400 p-2 w-full"
                   }, null, 512 /* NEED_PATCH */), [
                     [vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.state.confirmPassword]
                   ]),
-                  _hoisted_27
+                  _hoisted_21
                 ]),
-                _hoisted_28
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_22, [
+                  (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+                    onClick: _cache[7] || (_cache[7] = $event => ($setup.isModalOpen = false)),
+                    class: "bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full mr-2"
+                  }, "Cancel"),
+                  _hoisted_23
+                ])
               ], 32 /* HYDRATE_EVENTS */)
             ]),
             _: 1
@@ -60815,7 +60870,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)
     ]),
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <router-link v-for=\"post in state.posts\" :key=\"post.id\" :to=\"{ name: 'SinglePost', params: { postId: post.id } }\">\n        <Post :post=\"post\"></Post>\n    </router-link> "),
-    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_29, [
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_24, [
       ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.state.user?.posts, (post) => {
         return ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Post, {
           key: post.id,

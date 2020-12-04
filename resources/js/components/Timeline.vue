@@ -8,9 +8,9 @@
         <!-- posts -->
         <transition-group name="fade" enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut">
 
-            <router-link v-if="state.posts" v-for="(post, index) in state.posts" :key="post.id" :to="{ name: 'SinglePost', params: { postId: post.id } }">
+            <div v-if="state.posts" v-for="(post, index) in state.posts" :key="post.id">
                 <Post :post="post" :index="index" ></Post>
-            </router-link>
+            </div>
 
         </transition-group>
         <div v-if="state.posts < 1">
@@ -30,15 +30,15 @@ import CreatePostPanel from "./CreatePostPanel"
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 
+
 export default {
     components: {
         Post,
-        CreatePostPanel
+        CreatePostPanel,
     },
     setup(props, ctx) {
         const store = useStore();
         const route = useRoute();
-
 
         const state = reactive({
             posts: computed(() => store.getters.timeline)
