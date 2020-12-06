@@ -47,24 +47,6 @@
 
               </div>
 
-
-
-              <div class="mb-6">
-
-                <label for="username" class="block mb-2 uppercase font-bold text-xs text-gray-700">Username</label>
-                <input type="text" name="username" v-model="state.username" required class="border border-gray-400 p-2 w-full">
-                <p class="text-red-500 text-xs mt-2">Errors</p>
-
-              </div>
-
-              <div class="mb-6">
-
-                <label for="avatar" class="block mb-2 uppercase font-bold text-xs text-gray-700">Avatar</label>
-                <input type="file" name="avatar" @change="onFileSelected" class="border border-gray-400 p-2 w-full">
-                <p class="text-red-500 text-xs mt-2">Errors</p>
-
-              </div>
-
               <div class="mb-6">
 
                 <label for="email" class="block mb-2 uppercase font-bold text-xs text-gray-700">Email</label>
@@ -90,7 +72,11 @@
                 <p class="text-red-500 text-xs mt-2">Errors</p>
 
               </div>
-              <button type="submit" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">submit</button>
+              <div class="flex justify-end">
+
+                <button @click="isModalOpen = false" class="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-full mr-2">Cancel</button>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">submit</button>
+              </div>
             </form>
           </template>
         </Modal>
@@ -133,11 +119,10 @@ export default {
       const state = reactive({
           user: null,
           isFollowing: '',
-          username: '',
           name: '',
           email: '',
-          password: '',
-          confirmPassword: '',
+          password: null,
+          confirmPassword: null,
           selectedFile: '',
       })
 
@@ -163,21 +148,19 @@ export default {
 
       function onFileSelected(event){
         state.selectedFile = event.target.files[0]
-        console.log(state.selectedFile)
       }
 
       function editProfile()
       {
-        console.log('foo', state.selectedFile)
+        isModalOpen.value = false
         store.dispatch('editProfile', {
           authUser: name.value,
-          username: state.username,
           name: state.name,
           email: state.email,
           password: state.password,
           confirm: state.confirmPassword,
-          avatar: state.selectedFile,
         })
+
       }
 
 

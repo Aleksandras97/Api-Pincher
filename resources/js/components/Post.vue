@@ -20,8 +20,9 @@
                     <h5 class="font-semibold text-xs mb-4">@{{ post.user?.username }}</h5>
                 </router-link>
 
-                <p class="text-sm">{{ post.body }} </p>
-
+                <router-link  :to="{ name: 'SinglePost', params: { postId: post.id } }">
+                    <p class="text-sm">{{ post.body }} </p>
+                </router-link>
             </div>
 
           </div>
@@ -69,10 +70,6 @@ import { useStore } from 'vuex'
             function deletePost(){
               store.dispatch('deletePost', { PostId: props.post.id, PostIndex: props.index })
             }
-
-            onMounted(() => {
-                // console.log("post props" , post)
-            })
 
             return {
                 state,
