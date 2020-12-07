@@ -28,9 +28,11 @@ class ProfilesController extends Controller
             'email' => ['string', 'required', 'max:255', 'email', Rule::unique('users')->ignore($user)],
             'password' => ['required', 'string', 'min:6', 'max:255', 'confirmed'],
         ]);
-
-
-        $user->update($attributtes);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
 
 
         return new UserResource($user);
